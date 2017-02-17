@@ -82,11 +82,20 @@
     <Compile Include="Assets\FacebookSDK\Examples\Scripts\SubMenus\GraphRequest.cs" />
     <Compile Include="Assets\FacebookSDK\Examples\Scripts\SubMenus\MainMenu.cs" />
     <Compile Include="Assets\FacebookSDK\Examples\Scripts\SubMenus\Pay.cs" />
-    <Compile Include="Assets\Scripts\ContentFiller.cs" />
-    <Compile Include="Assets\Scripts\Friend.cs" />
-    <Compile Include="Assets\Scripts\GlobalVariables.cs" />
-    <Compile Include="Assets\Scripts\LoginAndAuthentication.cs" />
-    <Compile Include="Assets\Scripts\PannelSwitcher.cs" />
+    <Compile Include="Assets\Scripts\Home\GamePage\GamePanel.cs" />
+    <Compile Include="Assets\Scripts\Home\Home\UpperPanel.cs" />
+    <Compile Include="Assets\Scripts\Home\UserPage\NavigationPanel.cs" />
+    <Compile Include="Assets\Scripts\Home\UserPage\UserPage.cs" />
+    <Compile Include="Assets\Scripts\Home\Util\ContentFiller.cs" />
+    <Compile Include="Assets\Scripts\Home\Util\DataLayer.cs" />
+    <Compile Include="Assets\Scripts\Home\Util\Friend.cs" />
+    <Compile Include="Assets\Scripts\Home\Util\Game.cs" />
+    <Compile Include="Assets\Scripts\Home\Util\PageSwicher.cs" />
+    <Compile Include="Assets\Scripts\Home\Util\PannelSwitcher.cs" />
+    <Compile Include="Assets\Scripts\Login\LoginAndAuthentication.cs" />
+    <Compile Include="Assets\Scripts\TicTacToe\Cell.cs" />
+    <Compile Include="Assets\Scripts\TicTacToe\Main.cs" />
+    <Compile Include="Assets\Scripts\Util\DataStorage.cs" />
     <Compile Include="Assets\Test.cs" />
     <Compile Include="Assets\Util.cs" />
   </ItemGroup>

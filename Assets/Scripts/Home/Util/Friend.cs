@@ -14,4 +14,11 @@ public class Friend : MonoBehaviour
         Username.text = name;
         ProfilePicture.sprite = profilePicture;
     }
+
+    public void OnClick()
+    {
+        ContentFiller.instance.FillUserPage(ID);
+        PageSwicher.instance.EnableUserPage();
+    }
+
 }

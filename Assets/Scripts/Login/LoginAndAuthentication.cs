@@ -10,6 +10,8 @@ public class LoginAndAuthentication : MonoBehaviour {
     void Awake()
     {
         FB.Init(SetInit);
+        DataStorage.People = new List<DataStorage.Person>();
+        DataStorage.Games = new List<DataStorage.Game>();
     }
 
     private void SetInit()
@@ -56,6 +58,6 @@ public class LoginAndAuthentication : MonoBehaviour {
     private void LoadHomeScene()
     {
         SceneManager.LoadScene("HomeLoggedin");
-        GlobalVariables.CurrentAccessToken = Facebook.Unity.AccessToken.CurrentAccessToken;
+        //GlobalVariables.CurrentAccessToken = Facebook.Unity.AccessToken.CurrentAccessToken;
     }
 }
