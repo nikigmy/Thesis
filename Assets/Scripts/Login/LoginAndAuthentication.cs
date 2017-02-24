@@ -1,7 +1,9 @@
 ﻿using System;
 using Facebook.Unity;
 using System.Collections.Generic;
+using System.Runtime.Remoting.Channels;
 using UnityEngine;
+using UnityEngine.Networking.NetworkSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -27,7 +29,19 @@ public class LoginAndAuthentication : MonoBehaviour {
 
     public void OnFBLoginClicked()
     {
+#if UNITY_EDITOR
+        {
+            Facebook.Unity.AccessToken.CurrentAccessToken =
+                new AccessToken("EAAGVo1lrQ7kBAAa9ZBmcAXP0toBj1BCO88EhrF6t2WV4akrjFUpU0lkRGreraP3NtHCpmI5fRSg36SkqaPAN0zHtwXb4avlBjQw1J6FZBoJyX2QGwI3KRoiqDVbZA90ILEPOCajCocezvAkl718AfvgJDfViRYZD",
+                "10208627137535602",
+                new DateTime(2017, 4, 21),
+                new List<string> { "user_friends", "email", "public_profile" },
+                null);
+            LoadHomeScene();
+        }
+#else
         FBLogin();
+#endif
     }
 
     public void OnOfflineClicked()
@@ -41,6 +55,7 @@ public class LoginAndAuthentication : MonoBehaviour {
         var perms = new List<string>() { "public_profile", "email", "user_friends" };
         FB.LogInWithReadPermissions(perms, AuthCallback);
     }
+    
 
     private void AuthCallback(ILoginResult result)
     {

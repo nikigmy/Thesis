@@ -7,6 +7,7 @@ using System.Linq;
 using System.Reflection;
 using Facebook.MiniJSON;
 using Facebook.Unity;
+using UnityEngine.Networking;
 using UnityEngine.UI;
 
 public class ContentFiller : MonoBehaviour
@@ -30,7 +31,7 @@ public class ContentFiller : MonoBehaviour
     {
         profilePictureSize.x = ProfilePictureRectTransform.rect.width;
         profilePictureSize.y = ProfilePictureRectTransform.rect.height;
-        FB.API("/me?fields=first_name", HttpMethod.GET, NameCallback);
+        FB.API("/me?fields=first_name,id", HttpMethod.GET, NameCallback);
         
     }
 
@@ -43,12 +44,14 @@ public class ContentFiller : MonoBehaviour
         }
         else
         {
+            string userID = result.ResultDictionary["id"].ToString();
             string fbname = result.ResultDictionary["first_name"].ToString();
             Username.text = fbname;
-            DataStorage.Person person = new DataStorage.Person("me", fbname, new Sprite());
-            FB.API(Util.GetPictureURL("me", (int) profilePictureSize.x, (int) profilePictureSize.y), HttpMethod.GET,
+            DataStorage.Person person = new DataStorage.Person(userID, fbname, new Sprite());
+            FB.API(Util.GetPictureURL(userID, (int) profilePictureSize.x, (int) profilePictureSize.y), HttpMethod.GET,
                 ProfilePictureCallback);
-            DataStorage.People.Insert(0, person);
+            DataStorage.ThisUser = person;
+            Client.singleton.SendMessageToServer(MsgType.Connect, userID);
         }
     }
     private void ProfilePictureCallback(IGraphResult result)
@@ -61,7 +64,7 @@ public class ContentFiller : MonoBehaviour
         else
         {
             Sprite picture = Sprite.Create(result.Texture, new Rect(0, 0, profilePictureSize.x, profilePictureSize.y), Vector2.zero);
-            ProfilePicture.sprite = DataStorage.People[0].ProfilePicture = picture;
+            ProfilePicture.sprite = DataStorage.ThisUser.ProfilePicture = picture;
         }
     }
 
@@ -83,6 +86,7 @@ public class ContentFiller : MonoBehaviour
         {
             FillFriend(friend as Dictionary<string, object>);
         }
+        InitOthers();
     }
 
     private void FillFriend(Dictionary<string, object> friend)
@@ -103,7 +107,12 @@ public class ContentFiller : MonoBehaviour
         {
             GameObject a = (GameObject)Instantiate(FriendPrefab, FriendsContainer.transform);
             Friend friend = a.GetComponent<Friend>();
-            Sprite profilePicture = Sprite.Create(res.Texture, new Rect(0, 0, profilePictureSize.x, profilePictureSize.y), Vector2.zero);
+            Sprite profilePicture = new Sprite();
+            try
+            {
+                profilePicture = Sprite.Create(res.Texture, new Rect(0, 0, profilePictureSize.x, profilePictureSize.y), Vector2.zero);
+            }catch (Exception){}
+            
             friend.FillData(name, id, profilePicture);
             DataStorage.People.Add(new DataStorage.Person(id, name, profilePicture));
         }
@@ -146,9 +155,21 @@ public class ContentFiller : MonoBehaviour
 
     public void FillUserPage(string userID)
     {
-        DataStorage.Person person = DataStorage.People.First(x => x.ID == userID); 
+        DataStorage.Person person;
+        if (userID == "me")
+        {
+            person = DataStorage.ThisUser;
+        }
+        else
+        {
+            person = DataStorage.People.First(x => x.ID == userID);
+        }
         UserPage.transform.GetChild(0).GetComponent<Image>().sprite = person.ProfilePicture;
         UserPage.transform.GetChild(1).GetComponent<Text>().text = person.Name;
     }
 
+    private void InitOthers()
+    {
+        //Status.instance.StartUpdates();
+    }
 }

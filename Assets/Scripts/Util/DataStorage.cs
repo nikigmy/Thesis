@@ -23,6 +23,8 @@ public class DataStorage
         public string Name { get; set; }
 
         public Sprite ProfilePicture { get; set; }
+
+        public bool OnlineStatus { get; set; }
     }
 
     public class Game
@@ -45,6 +47,8 @@ public class DataStorage
 
         public string Description { get; set; }
     }
+
+    public static Person ThisUser;
 
     public static List<Person> People;
 
