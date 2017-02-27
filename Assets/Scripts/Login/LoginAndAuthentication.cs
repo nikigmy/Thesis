@@ -12,7 +12,6 @@ public class LoginAndAuthentication : MonoBehaviour {
 
     void Awake()
     {
-        ClientScene.Ready(MyNetworkManager.connectionToTheServer);
         FB.Init(SetInit);
         DataStorage.People = new List<DataStorage.Person>();
         DataStorage.Games = new List<DataStorage.Game>();

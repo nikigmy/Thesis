@@ -26,6 +26,7 @@ public class FriendForInvites : MonoBehaviour
 
     public void OnClick()
     {
-        MyNetworkManager.SendMessageToServer(1003, DataStorage.ThisUser.ID + ";" + ID + ";" + ";invite");
+        MyNetworkManager.SendMessageToServer(1003, DataStorage.ThisUser.ID + ";" + ID + ";" + GamePanel.GameID + ";" + ";invite");
+        PlayOnline.singleton.ShowInvitedPanel(ID);
     }
 }

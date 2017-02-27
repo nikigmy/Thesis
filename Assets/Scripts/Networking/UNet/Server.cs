@@ -9,6 +9,7 @@ using UnityEngine.Networking.NetworkSystem;
 
 public class Server : NetworkBehaviour
 {
+
     const short connect = 1000;
     const short onlineStatusUpdate = 1001;
     const short offlineStatusUpdate = 1002;
@@ -30,11 +31,6 @@ public class Server : NetworkBehaviour
     public void UpdatePlayer(int connectionId, string FacebookId, List<string> firends)
     {
         //Player player = ConnectedIPs.Find(x => x.IpAdress == IP);
-    }
-
-    public void test(int ID, short chanel, string message)
-    {
-        MyNetworkManager.SendMessageToClient(ID, chanel, message);
     }
 
     public void OnPlayerDisconnected()
@@ -95,18 +91,19 @@ public class Server : NetworkBehaviour
         ConnectionIDs = new List<int>();
         NetworkServer.RegisterHandler(GetRecieveFriends, FillNewUserData);
         NetworkServer.RegisterHandler(connect, OnConnected);
-        NetworkServer.RegisterHandler(gameInvite, InviteFriend);
+        NetworkServer.RegisterHandler(gameInvite, GameInvites);
         DatabaseLayer = DatabaseLayer.GetInstance();
         //networkManager.StartServer();
     }
-    
+
     [Server]
-    void InviteFriend(NetworkMessage netMsg)
+    void GameInvites(NetworkMessage netMsg)
     {
         string[] data = netMsg.ReadMessage<StringMessage>().value.Split(';');
-        int connectionId = DatabaseLayer.GetConnectionID(data[1]);
-        //MyNetworkManager.SendMessageToClient(connectionId, gameInvite, data[0] + ";" + data[2]);
-        MyNetworkManager.SendMessageToClient(netMsg.conn.connectionId, gameInvite, data[0] + ";" + data[2]);
+        int inviterConnectionId = netMsg.conn.connectionId;
+        int invitedConnectionId = DatabaseLayer.GetConnectionID(data[1]);
+        int gameId = int.Parse(data[2]);
+        MyNetworkManager.SendMessageToClient(invitedConnectionId, gameInvite, data[0] + ";" + data[2] + ";" + data[3]);
     }
 
     [Server]
@@ -118,7 +115,6 @@ public class Server : NetworkBehaviour
         int connectionId = netMsg.conn.connectionId;
         ConnectionIDs.Add(connectionId);
         int result = DatabaseLayer.ConnectPlayer(facebookID, connectionId);
-        test(1,1000, "" + result);
         if (result > 0)
         {
             Dictionary<string, List<int>> onlineFriendsConnectionAndFbIds = DatabaseLayer.GetOnlineFriendsIds(connectionId);
@@ -132,7 +128,6 @@ public class Server : NetworkBehaviour
 
     void SendOnlineFriends(int connectionId, List<string> fbFriendsIds)
     {
-        test(1,1000,"fu1");
         if (fbFriendsIds == null || fbFriendsIds.Count == 0)
             return;
         StringBuilder friendIds = new StringBuilder();
@@ -141,10 +136,7 @@ public class Server : NetworkBehaviour
         {
             friendIds.Append(";" + fbFriendsIds[i]);
         }
-        Debug.Log("Server");
-        test(connectionId, onlineFriends, friendIds.ToString());
-        //MyNetworkManager.SendMessageToClient(1, 1000, friendIds.ToString());
-        MyNetworkManager.SendMessageToClient(1, 1000, "fu2");
+        MyNetworkManager.SendMessageToClient(connectionId, onlineFriends, friendIds.ToString());
     }
 
     [Server]

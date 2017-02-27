@@ -35,7 +35,6 @@ public class ContentFiller : MonoBehaviour
         {
             FillOldUserData();
         }
-        ClientScene.Ready(MyNetworkManager.connectionToTheServer);
     }
 
     private void FillOldUserData()

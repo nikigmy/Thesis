@@ -1,7 +1,8 @@
-﻿using UnityEngine;
+﻿using System.Diagnostics;
 using UnityEngine.Networking;
 using UnityEngine.Networking.NetworkSystem;
 using UnityEngine.UI;
+using Debug = UnityEngine.Debug;
 
 public class Client : NetworkBehaviour
 {
@@ -67,6 +68,27 @@ public class Client : NetworkBehaviour
         string[] gameInviteData = msg.ReadMessage<StringMessage>().value.Split(';');
         string friendFbId = gameInviteData[0];
         int gameID = int.Parse(gameInviteData[1]);
+        switch (gameInviteData[2])
+        {
+            case "invite":
+            {
+                GameInvites.singleton.Invite(friendFbId, gameID);
+                break;
+            }
+            case "accept":
+            {
+                break;
+            }
+            case "decline":
+            {
+                break;
+            }
+            case "abort":
+            {
+                    GameInvites.singleton.Abort();
+                break;
+            }
+        }
         Debug.Log("FINISH THIS");
 
     }

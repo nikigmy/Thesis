@@ -2,13 +2,24 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayOnline : MonoBehaviour
 {
-
     public GameObject FriendContent;
     public GameObject friendPrefab;
     public List<FriendForInvites> friends;
+
+    public static PlayOnline singleton;
+    private string currentInvited;
+    private int currentGameId;
+    public GameObject invitePanel;
+    public Text message;
+
+    void Start()
+    {
+        singleton = this;
+    }
 
     public void ShowFriends()
     {
@@ -34,5 +45,19 @@ public class PlayOnline : MonoBehaviour
         {
             friends[i].FillData(onlineFriends[i]);
         }
+    }
+
+    public void ShowInvitedPanel(string fbId)
+    {
+        invitePanel.SetActive(true);
+        currentInvited = fbId;
+        message.text = "You have invited " + DataStorage.People.First(x => x.ID == fbId).Name + " to play Tic-Tac-Toe";
+        Debug.Log("FINISH THIS");
+    }
+
+    public void OnAbort()
+    {
+        MyNetworkManager.SendMessageToServer(1003, DataStorage.ThisUser.ID + ";" + currentInvited + ";" + GamePanel.GameID + ";" + ";abort");
+        invitePanel.SetActive(false);
     }
 }

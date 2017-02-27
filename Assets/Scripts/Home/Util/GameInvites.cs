@@ -9,26 +9,38 @@ public class GameInvites : MonoBehaviour
     public GameObject panel;
     public Text message;
     public static GameInvites singleton;
+    private int currentGameId;
+    private string currentInviterFbId;
 
     void Start ()
 	{
 	    singleton = this;
 	}
 
-    void Invite(string fbId)
+    public void Invite(string fbId, int gameId)
     {
+        panel.SetActive(true);
+        currentInviterFbId = fbId;
+        currentGameId = gameId;
         string name = DataStorage.People.First(x => x.ID == fbId).Name;
         message.text = name + " invited you to play Tic-Tac-Toe";
         Debug.Log("FINISH THIS");
     }
 
-    void OnAccept()
+    public void Abort()
     {
-        //MyNetworkManager.SendMessageToServer(1003, DataStorage.ThisUser.ID + ";" + ID + ";" + ";invite");
+        panel.SetActive(false);
     }
 
-    void OnDecline()
+    public void OnAccept()
     {
-        
+        MyNetworkManager.SendMessageToServer(1003, DataStorage.ThisUser.ID + ";" + currentInviterFbId + ";" + currentGameId+ ";" + ";accept");
+        panel.SetActive(false);
+    }
+
+    public void OnDecline()
+    {
+        MyNetworkManager.SendMessageToServer(1003, DataStorage.ThisUser.ID + ";" + currentInviterFbId + ";" + currentGameId + ";" + ";decline");
+        panel.SetActive(false);
     }
 }
