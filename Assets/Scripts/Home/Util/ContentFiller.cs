@@ -13,6 +13,7 @@ using UnityEngine.UI;
 public class ContentFiller : MonoBehaviour
 {
     public GameObject clientPrefab;
+    private static bool initialized = false;
     public static ContentFiller instance;
     public Text Username;
     public Image ProfilePicture;
@@ -23,11 +24,33 @@ public class ContentFiller : MonoBehaviour
     public GameObject UserPage;
     void Start()
     {
-        Instantiate(clientPrefab);
         instance = this;
-        FillUserData();
-        FillFriendsData();
+        if (!initialized)
+        {
+            FillUserData();
+            FillFriendsData();
+            initialized = true;
+        }
+        else
+        {
+            FillOldUserData();
+        }
         ClientScene.Ready(MyNetworkManager.connectionToTheServer);
+    }
+
+    private void FillOldUserData()
+    {
+        Username.text = DataStorage.ThisUser.Name;
+        ProfilePicture.sprite = DataStorage.ThisUser.ProfilePicture;
+
+        foreach (var person in DataStorage.People.OrderByDescending(x => x.OnlineStatus))
+        {
+            GameObject a = (GameObject)Instantiate(FriendPrefab, FriendsContainer.transform);
+            Friend friend = a.GetComponent<Friend>();
+            LowerPanel.instance.Friends.Add(friend);
+            Sprite profilePicture = new Sprite();
+            friend.FillData(person);
+        }
     }
 
     private void FillUserData()
@@ -35,7 +58,7 @@ public class ContentFiller : MonoBehaviour
         profilePictureSize.x = ProfilePictureRectTransform.rect.width;
         profilePictureSize.y = ProfilePictureRectTransform.rect.height;
         FB.API("/me?fields=first_name,id", HttpMethod.GET, NameCallback);
-        
+
     }
 
     private void NameCallback(IResult result)
@@ -51,10 +74,10 @@ public class ContentFiller : MonoBehaviour
             string fbname = result.ResultDictionary["first_name"].ToString();
             Username.text = fbname;
             DataStorage.Person person = new DataStorage.Person(userID, fbname, new Sprite());
-            FB.API(Util.GetPictureURL(userID, (int) profilePictureSize.x, (int) profilePictureSize.y), HttpMethod.GET,
+            FB.API(Util.GetPictureURL(userID, (int)profilePictureSize.x, (int)profilePictureSize.y), HttpMethod.GET,
                 ProfilePictureCallback);
             DataStorage.ThisUser = person;
-            ClientNetworkManager.SendMessageToServer(1000, userID);
+            MyNetworkManager.SendMessageToServer(1000, userID);
         }
     }
     private void ProfilePictureCallback(IGraphResult result)
@@ -112,51 +135,18 @@ public class ContentFiller : MonoBehaviour
             Friend friend = a.GetComponent<Friend>();
             LowerPanel.instance.Friends.Add(friend);
             Sprite profilePicture = new Sprite();
-            
+
             try
             {
                 profilePicture = Sprite.Create(res.Texture, new Rect(0, 0, profilePictureSize.x, profilePictureSize.y), Vector2.zero);
-            }catch (Exception){ }
-            DataStorage.People.Add(new DataStorage.Person(id, name, profilePicture));
+            }
+            catch (Exception) { }
+            DataStorage.Person person = new DataStorage.Person(id, name, profilePicture);
+            DataStorage.People.Add(person);
             DataStorage.UpdateStatus();
-            friend.FillData(DataStorage.People.Last());
+            friend.FillData(person);
         }
     }
-
-    //public void FillUserPage(string userID)//Send request to fill the page
-    //{
-    //    FB.API(string.Format("/{0}/fields=first_name,", userID), HttpMethod.GET, (IGraphResult result) => FillUserPageNameCallback(result, userID));
-        
-    //}
-
-    //private void FillUserPageNameCallback(IResult res, string userID)
-    //{
-    //    if (res.Error != null)
-    //    {
-    //        Debug.Log("Fill userpage name failed!!!");
-    //        FB.API(string.Format("/{0}/fields=first_name,", userID), HttpMethod.GET,
-    //            (IGraphResult result) => FillUserPageNameCallback(result, userID));
-    //    }
-    //    else
-    //    {
-    //        string username = res.ResultDictionary["first_name"].ToString();
-    //        FB.API(Util.GetPictureURL(userID, (int)profilePictureSize.x, (int)profilePictureSize.y), HttpMethod.GET, (IGraphResult result)=>FillUserPagePictureCallback(result, username, userID));
-    //    }
-    //}
-
-    //private void FillUserPagePictureCallback(IGraphResult res, string username, string userID)
-    //{
-    //    if (res.Error != null)
-    //    {
-    //        Debug.Log("Fill userpage picture failed!!!");
-    //        FB.API(Util.GetPictureURL(userID, (int)profilePictureSize.x, (int)profilePictureSize.y), HttpMethod.GET, (IGraphResult result) => FillUserPagePictureCallback(result, username, userID));
-    //    }
-    //    else
-    //    {
-    //        Sprite profilePicture = Sprite.Create(res.Texture, new Rect(0, 0, profilePictureSize.x, profilePictureSize.y), Vector2.zero);
-    //        FillUserPage(username, profilePicture);
-    //    }
-    //}
 
     public void FillUserPage(string userID)
     {

@@ -200,6 +200,7 @@
     <Compile Include="Assets\Scripts\Home\Util\Friend.cs" />
     <Compile Include="Assets\Scripts\Home\Util\FriendForInvites.cs" />
     <Compile Include="Assets\Scripts\Home\Util\Game.cs" />
+    <Compile Include="Assets\Scripts\Home\Util\GameInvites.cs" />
     <Compile Include="Assets\Scripts\Home\Util\PageSwicher.cs" />
     <Compile Include="Assets\Scripts\Home\Util\PannelSwitcher.cs" />
     <Compile Include="Assets\Scripts\Login\LoginAndAuthentication.cs" />

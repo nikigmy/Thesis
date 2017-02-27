@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 public class DataStorage
 {
@@ -69,5 +70,7 @@ public class DataStorage
                 person.OnlineStatus = false;
             }
         }
+
+        People = People.OrderByDescending(x => x.OnlineStatus).ToList();
     }
 }

@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class FriendForInvites : MonoBehaviour {
-    
+public class FriendForInvites : MonoBehaviour
+{
+
     private string ID;
     public Text Username;
     public Image ProfilePicture;
@@ -25,6 +26,6 @@ public class FriendForInvites : MonoBehaviour {
 
     public void OnClick()
     {
-        MyNetworkManager.SendMessageToServer(1003, ID + ";invite");
+        MyNetworkManager.SendMessageToServer(1003, DataStorage.ThisUser.ID + ";" + ID + ";" + ";invite");
     }
 }

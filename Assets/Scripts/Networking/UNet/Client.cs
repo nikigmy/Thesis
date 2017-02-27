@@ -23,6 +23,10 @@ public class Client : NetworkBehaviour
         networkingManager = ClientSpawner.singleton.networkManager;
         RegisterHandlers();
     }
+    private void OnEnable()
+    {
+        RegisterHandlers();
+    }
 
     private void OnDisable()
     {
