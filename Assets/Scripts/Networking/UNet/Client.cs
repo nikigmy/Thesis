@@ -11,6 +11,7 @@ public class Client : NetworkBehaviour
     const short offlineStatusUpdate = 1002;
     const short gameInvite = 1003;
     const short onlineFriends = 1004;
+
     public NetworkIdentity a;
     public MyNetworkManager networkingManager;
     public static Client singleton;
@@ -31,20 +32,11 @@ public class Client : NetworkBehaviour
     public void RegisterHandlers()
     {
         Debug.Log(NetworkClient.allClients.Count);
-        networkingManager.client.RegisterHandler(1000, Test);
         networkingManager.client.RegisterHandler(onlineStatusUpdate, FriendLoggedIn);
         networkingManager.client.RegisterHandler(onlineStatusUpdate, FriendLoggedIn);
         networkingManager.client.RegisterHandler(offlineStatusUpdate, FriendDisconected);
         networkingManager.client.RegisterHandler(gameInvite, GameInvite);
         networkingManager.client.RegisterHandler(onlineFriends, OnlineFriends);
-    }
-
-    [Client]
-    void Test(NetworkMessage msg)
-    {
-        string facebookID = msg.ReadMessage<StringMessage>().value;
-        Debug.Log(facebookID);
-        Debug.Log("sad");
     }
 
     [Client]
