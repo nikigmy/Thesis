@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Scenes/HomeLoggedin.unity
+- path: Assets/Scenes/TicTacToeOnline.unity
   isLoaded: 1
   isActive: 1

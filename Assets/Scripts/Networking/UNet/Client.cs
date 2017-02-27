@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 using UnityEngine.Networking;
 using UnityEngine.Networking.NetworkSystem;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Debug = UnityEngine.Debug;
 
@@ -72,24 +73,26 @@ public class Client : NetworkBehaviour
         switch (gameInviteData[2])
         {
             case "invite":
-            {
-                GameInvites.singleton.Invite(friendFbId, gameID);
-                break;
-            }
+                {
+                    GameInvites.singleton.Invite(friendFbId, gameID);
+                    break;
+                }
             case "accept":
-            {
-                break;
-            }
+                {
+                    SceneManager.LoadScene(6, LoadSceneMode.Additive);
+                    Debug.Log("FINISH THIS");
+                    break;
+                }
             case "decline":
-            {
-                    GameInvites.singleton.OnDecline();
-                break;
-            }
+                {
+                    PlayOnline.singleton.OnDecline();
+                    break;
+                }
             case "abort":
-            {
+                {
                     GameInvites.singleton.Abort();
-                break;
-            }
+                    break;
+                }
         }
         Debug.Log("FINISH THIS");
 

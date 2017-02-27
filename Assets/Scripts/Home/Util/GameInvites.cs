@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameInvites : MonoBehaviour
@@ -35,6 +36,7 @@ public class GameInvites : MonoBehaviour
     public void OnAccept()
     {
         MyNetworkManager.SendMessageToServer(1003, DataStorage.ThisUser.ID + ";" + currentInviterFbId + ";" + currentGameId + ";accept");
+        SceneManager.LoadScene(6, LoadSceneMode.Additive);
         panel.SetActive(false);
     }
 

@@ -214,6 +214,10 @@
     <Compile Include="Assets\Scripts\Networking\UNet\UnetStatus.cs" />
     <Compile Include="Assets\Scripts\TicTacToe\Cell.cs" />
     <Compile Include="Assets\Scripts\TicTacToe\Main.cs" />
+    <Compile Include="Assets\Scripts\TicTacToe\Online\CellOnline.cs" />
+    <Compile Include="Assets\Scripts\TicTacToe\Online\MainOnline.cs" />
+    <Compile Include="Assets\Scripts\TicTacToe\Online\NetworkHandler.cs" />
+    <Compile Include="Assets\Scripts\TicTacToe\Online\SpawnObjects.cs" />
     <Compile Include="Assets\Scripts\Util\ClientSpawner.cs" />
     <Compile Include="Assets\Scripts\Util\DataStorage.cs" />
     <Compile Include="Assets\Scripts\Util\NetworkingModeController.cs" />
