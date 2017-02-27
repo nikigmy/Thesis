@@ -1,10 +1,18 @@
 fileFormatVersion: 2
 guid: c2a2c38c170eb0649bafbaf8d1cafa2e
-timeCreated: 1482660412
+timeCreated: 1488151281
 licenseType: Free
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - clientPrefab: {fileID: 1955446505035290, guid: 3a93e27802befcc4d9f20a841febccf9,
+      type: 2}
+  - Username: {instanceID: 0}
+  - ProfilePicture: {instanceID: 0}
+  - ProfilePictureRectTransform: {instanceID: 0}
+  - FriendsContainer: {instanceID: 0}
+  - FriendPrefab: {instanceID: 0}
+  - UserPage: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

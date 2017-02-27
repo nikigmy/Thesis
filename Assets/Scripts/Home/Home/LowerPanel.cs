@@ -9,7 +9,7 @@ public class LowerPanel : MonoBehaviour
 
     public static LowerPanel instance;
 
-    void Start()
+    void Awake()
     {
         instance = this;
     }

@@ -12,6 +12,7 @@ using UnityEngine.UI;
 
 public class ContentFiller : MonoBehaviour
 {
+    public GameObject clientPrefab;
     public static ContentFiller instance;
     public Text Username;
     public Image ProfilePicture;
@@ -22,9 +23,11 @@ public class ContentFiller : MonoBehaviour
     public GameObject UserPage;
     void Start()
     {
+        Instantiate(clientPrefab);
         instance = this;
         FillUserData();
         FillFriendsData();
+        ClientScene.Ready(MyNetworkManager.connectionToTheServer);
     }
 
     private void FillUserData()
@@ -51,7 +54,7 @@ public class ContentFiller : MonoBehaviour
             FB.API(Util.GetPictureURL(userID, (int) profilePictureSize.x, (int) profilePictureSize.y), HttpMethod.GET,
                 ProfilePictureCallback);
             DataStorage.ThisUser = person;
-            Client.singleton.SendMessageToServer(MsgType.Connect, userID);
+            ClientNetworkManager.SendMessageToServer(1000, userID);
         }
     }
     private void ProfilePictureCallback(IGraphResult result)
@@ -108,13 +111,14 @@ public class ContentFiller : MonoBehaviour
             GameObject a = (GameObject)Instantiate(FriendPrefab, FriendsContainer.transform);
             Friend friend = a.GetComponent<Friend>();
             Sprite profilePicture = new Sprite();
+            
             try
             {
                 profilePicture = Sprite.Create(res.Texture, new Rect(0, 0, profilePictureSize.x, profilePictureSize.y), Vector2.zero);
-            }catch (Exception){}
-            
-            friend.FillData(name, id, profilePicture);
+            }catch (Exception){ }
             DataStorage.People.Add(new DataStorage.Person(id, name, profilePicture));
+            DataStorage.UpdateStatus();
+            friend.FillData(DataStorage.People.Last());
         }
     }
 

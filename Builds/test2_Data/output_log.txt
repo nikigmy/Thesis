@@ -1,0 +1,67 @@
+Initialize engine version: 5.5.1f1 (88d00a7498cd)
+GfxDevice: creating device client; threaded=1
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.0]
+    Renderer: Intel(R) HD Graphics 4000 (ID=0x166)
+    Vendor:   Intel
+    VRAM:     912 MB
+    Driver:   10.18.10.4425
+Begin MonoManager ReloadAssembly
+Platform assembly: C:\Users\NikolaiMilanov\Documents\UnityProjects\Thesis\Builds\test2_Data\Managed\UnityEngine.dll (this message is harmless)
+Loading C:\Users\NikolaiMilanov\Documents\UnityProjects\Thesis\Builds\test2_Data\Managed\UnityEngine.dll into Unity Child Domain
+Platform assembly: C:\Users\NikolaiMilanov\Documents\UnityProjects\Thesis\Builds\test2_Data\Managed\Assembly-CSharp-firstpass.dll (this message is harmless)
+Loading C:\Users\NikolaiMilanov\Documents\UnityProjects\Thesis\Builds\test2_Data\Managed\Assembly-CSharp-firstpass.dll into Unity Child Domain
+Platform assembly: C:\Users\NikolaiMilanov\Documents\UnityProjects\Thesis\Builds\test2_Data\Managed\Assembly-CSharp.dll (this message is harmless)
+Loading C:\Users\NikolaiMilanov\Documents\UnityProjects\Thesis\Builds\test2_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
+Platform assembly: C:\Users\NikolaiMilanov\Documents\UnityProjects\Thesis\Builds\test2_Data\Managed\UnityEngine.UI.dll (this message is harmless)
+Loading C:\Users\NikolaiMilanov\Documents\UnityProjects\Thesis\Builds\test2_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
+Platform assembly: C:\Users\NikolaiMilanov\Documents\UnityProjects\Thesis\Builds\test2_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
+Loading C:\Users\NikolaiMilanov\Documents\UnityProjects\Thesis\Builds\test2_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
+Platform assembly: C:\Users\NikolaiMilanov\Documents\UnityProjects\Thesis\Builds\test2_Data\Managed\UnityEngine.PlaymodeTestsRunner.dll (this message is harmless)
+Loading C:\Users\NikolaiMilanov\Documents\UnityProjects\Thesis\Builds\test2_Data\Managed\UnityEngine.PlaymodeTestsRunner.dll into Unity Child Domain
+Platform assembly: C:\Users\NikolaiMilanov\Documents\UnityProjects\Thesis\Builds\test2_Data\Managed\Facebook.Unity.dll (this message is harmless)
+Loading C:\Users\NikolaiMilanov\Documents\UnityProjects\Thesis\Builds\test2_Data\Managed\Facebook.Unity.dll into Unity Child Domain
+Platform assembly: C:\Users\NikolaiMilanov\Documents\UnityProjects\Thesis\Builds\test2_Data\Managed\Facebook.Unity.Arcade.dll (this message is harmless)
+Loading C:\Users\NikolaiMilanov\Documents\UnityProjects\Thesis\Builds\test2_Data\Managed\Facebook.Unity.Arcade.dll into Unity Child Domain
+Platform assembly: C:\Users\NikolaiMilanov\Documents\UnityProjects\Thesis\Builds\test2_Data\Managed\FacebookNamedPipeClient.dll (this message is harmless)
+Loading C:\Users\NikolaiMilanov\Documents\UnityProjects\Thesis\Builds\test2_Data\Managed\FacebookNamedPipeClient.dll into Unity Child Domain
+Platform assembly: C:\Users\NikolaiMilanov\Documents\UnityProjects\Thesis\Builds\test2_Data\Managed\Facebook.Unity.Settings.dll (this message is harmless)
+Loading C:\Users\NikolaiMilanov\Documents\UnityProjects\Thesis\Builds\test2_Data\Managed\Facebook.Unity.Settings.dll into Unity Child Domain
+Platform assembly: C:\Users\NikolaiMilanov\Documents\UnityProjects\Thesis\Builds\test2_Data\Managed\Mono.Data.Sqlite.dll (this message is harmless)
+Loading C:\Users\NikolaiMilanov\Documents\UnityProjects\Thesis\Builds\test2_Data\Managed\Mono.Data.Sqlite.dll into Unity Child Domain
+Platform assembly: C:\Users\NikolaiMilanov\Documents\UnityProjects\Thesis\Builds\test2_Data\Managed\Photon3Unity3D.dll (this message is harmless)
+Loading C:\Users\NikolaiMilanov\Documents\UnityProjects\Thesis\Builds\test2_Data\Managed\Photon3Unity3D.dll into Unity Child Domain
+Platform assembly: C:\Users\NikolaiMilanov\Documents\UnityProjects\Thesis\Builds\test2_Data\Managed\System.Data.dll (this message is harmless)
+Loading C:\Users\NikolaiMilanov\Documents\UnityProjects\Thesis\Builds\test2_Data\Managed\System.Data.dll into Unity Child Domain
+- Completed reload, in  0.323 seconds
+Platform assembly: C:\Users\NikolaiMilanov\Documents\UnityProjects\Thesis\Builds\test2_Data\Managed\System.Core.dll (this message is harmless)
+Platform assembly: C:\Users\NikolaiMilanov\Documents\UnityProjects\Thesis\Builds\test2_Data\Managed\System.dll (this message is harmless)
+desktop: 1920x1080 60Hz; virtual: 1920x1080 at 0,0
+<RI> Initializing input.
+<RI> Input initialized.
+<RI> Initialized touch support.
+UnloadTime: 3.100327 ms
+InvalidOperationException: Pipe name not passed to application on start.
+ Make sure you are running inside the facebook games client.
+  at Facebook.Unity.Arcade.ArcadeWrapper..ctor () [0x00000] in <filename unknown>:0 
+  at (wrapper managed-to-native) System.Reflection.MonoCMethod:InternalInvoke (object,object[],System.Exception&)
+  at System.Reflection.MonoCMethod.Invoke (System.Object obj, BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x00000] in <filename unknown>:0 
+Rethrow as TargetInvocationException: Exception has been thrown by the target of an invocation.
+  at System.Reflection.MonoCMethod.Invoke (System.Object obj, BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x00000] in <filename unknown>:0 
+  at System.Reflection.MonoCMethod.Invoke (BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x00000] in <filename unknown>:0 
+  at System.Reflection.ConstructorInfo.Invoke (System.Object[] parameters) [0x00000] in <filename unknown>:0 
+  at System.Activator.CreateInstance (System.Type type, Boolean nonPublic) [0x00000] in <filename unknown>:0 
+  at System.Activator.CreateInstance (System.Type type) [0x00000] in <filename unknown>:0 
+  at Facebook.Unity.Arcade.ArcadeFacebook.GetArcadeWrapper () [0x00000] in <filename unknown>:0 
+  at Facebook.Unity.Arcade.ArcadeFacebook..ctor () [0x00000] in <filename unknown>:0 
+  at Facebook.Unity.Arcade.ArcadeFacebookLoader.get_FBGameObject () [0x00000] in <filename unknown>:0 
+  at Facebook.Unity.FB+CompiledFacebookLoader.Start () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+conected(client)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Setting up 1 worker threads for Enlighten.
+  Thread -> id: fa8 -> priority: 1 

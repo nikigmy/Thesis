@@ -9,7 +9,7 @@ using UnityEngine.SceneManagement;
 public class UnetStatus : NetworkBehaviour {
 
     const short login = 1000;
-    NetworkClient _client;
+    //NetworkClient _client;
     public SyncListString PlayerNames = new SyncListString();
     public override void OnStartClient()
     {
@@ -17,7 +17,7 @@ public class UnetStatus : NetworkBehaviour {
     }
     public void Start()
     {
-        _client = NetworkManager.singleton.client;
+        //_client = NetworkManager.singleton.client;
         NetworkServer.RegisterHandler(login, Login);
 
         //var msg = new StringMessage(conn.address);
@@ -38,6 +38,7 @@ public class UnetStatus : NetworkBehaviour {
     {
         string message = netMsg.ReadMessage<StringMessage>().value;
         PlayerNames.Add(message);
+        
     }
 
 

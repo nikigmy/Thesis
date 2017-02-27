@@ -48,9 +48,22 @@ public class DataStorage
         public string Description { get; set; }
     }
 
+    public static List<string> OnlineFriends;
+
     public static Person ThisUser;
 
     public static List<Person> People;
 
     public static List<Game> Games;
+
+    public static void UpdateStatus()
+    {
+        foreach (var person in People)
+        {
+            if (OnlineFriends.Contains(person.ID))
+            {
+                person.OnlineStatus = true;
+            }
+        }
+    }
 }

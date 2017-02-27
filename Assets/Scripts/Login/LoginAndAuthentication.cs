@@ -3,6 +3,7 @@ using Facebook.Unity;
 using System.Collections.Generic;
 using System.Runtime.Remoting.Channels;
 using UnityEngine;
+using UnityEngine.Networking;
 using UnityEngine.Networking.NetworkSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -11,6 +12,7 @@ public class LoginAndAuthentication : MonoBehaviour {
 
     void Awake()
     {
+        ClientScene.Ready(MyNetworkManager.connectionToTheServer);
         FB.Init(SetInit);
         DataStorage.People = new List<DataStorage.Person>();
         DataStorage.Games = new List<DataStorage.Game>();
@@ -29,19 +31,21 @@ public class LoginAndAuthentication : MonoBehaviour {
 
     public void OnFBLoginClicked()
     {
-#if UNITY_EDITOR
+        if (Application.platform == RuntimePlatform.WindowsPlayer || Application.platform == RuntimePlatform.WindowsEditor)
         {
             Facebook.Unity.AccessToken.CurrentAccessToken =
-                new AccessToken("EAAGVo1lrQ7kBAAa9ZBmcAXP0toBj1BCO88EhrF6t2WV4akrjFUpU0lkRGreraP3NtHCpmI5fRSg36SkqaPAN0zHtwXb4avlBjQw1J6FZBoJyX2QGwI3KRoiqDVbZA90ILEPOCajCocezvAkl718AfvgJDfViRYZD",
-                "10208627137535602",
-                new DateTime(2017, 4, 21),
-                new List<string> { "user_friends", "email", "public_profile" },
-                null);
+                new AccessToken(
+                    "EAAGVo1lrQ7kBAAa9ZBmcAXP0toBj1BCO88EhrF6t2WV4akrjFUpU0lkRGreraP3NtHCpmI5fRSg36SkqaPAN0zHtwXb4avlBjQw1J6FZBoJyX2QGwI3KRoiqDVbZA90ILEPOCajCocezvAkl718AfvgJDfViRYZD",
+                    "10208627137535602",
+                    new DateTime(2017, 4, 21),
+                    new List<string> {"user_friends", "email", "public_profile"},
+                    null);
             LoadHomeScene();
         }
-#else
-        FBLogin();
-#endif
+        else if (Application.platform == RuntimePlatform.Android)
+        {
+            FBLogin();
+        }
     }
 
     public void OnOfflineClicked()
@@ -72,7 +76,7 @@ public class LoginAndAuthentication : MonoBehaviour {
 
     private void LoadHomeScene()
     {
-        SceneManager.LoadScene("HomeLoggedin");
+        SceneManager.LoadScene("HomeLoggedin", LoadSceneMode.Additive);
         //GlobalVariables.CurrentAccessToken = Facebook.Unity.AccessToken.CurrentAccessToken;
     }
 }

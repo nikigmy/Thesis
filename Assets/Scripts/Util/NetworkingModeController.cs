@@ -1,11 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking.Match;
 using UnityEngine.SceneManagement;
 
 public class NetworkingModeController : MonoBehaviour
 {
-
+    public MyNetworkManager networkManager;
+    public GameObject client;
+    public GameObject server;
     //	void Start () {
     //#if UNITY_EDITOR
     //        {
@@ -20,10 +23,13 @@ public class NetworkingModeController : MonoBehaviour
 
     public void OnClientClicked()
     {
-        SceneManager.LoadScene("Login");
+        GameObject.Destroy(server);
+        networkManager.StartClient();
+        SceneManager.LoadScene("Login", LoadSceneMode.Additive);
     }
     public void OnServerClicked()
     {
-        SceneManager.LoadScene("Server");
+        networkManager.StartServer();
+        SceneManager.LoadScene("Server", LoadSceneMode.Additive);
     }
 }

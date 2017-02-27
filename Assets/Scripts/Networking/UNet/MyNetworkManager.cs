@@ -8,8 +8,18 @@ using UnityEngine.Networking.NetworkSystem;
 
 public class MyNetworkManager : NetworkManager
 {
+    public static NetworkConnection connectionToTheServer;
+    public GameObject clientPrefab;
+    public Client currentClient;
+
     public override void OnClientConnect(NetworkConnection conn)
     {
+        connectionToTheServer = conn;
+        NetworkServer.SpawnObjects();
+        //NetworkServer.co
+        //Client.singleton.RegisterHandlers();
+        //MyNetworkManager.SendMessageToServer(1000, "10208627137535602");
+        ClientSpawner.singleton.SpawnNewObject();
         Debug.Log("conected(client)");
         base.OnClientConnect(conn);
     }
@@ -17,14 +27,11 @@ public class MyNetworkManager : NetworkManager
     public override void OnServerConnect(NetworkConnection conn)
     {
         Debug.Log("client conected(server)");
-        Server.singleton.AddPlayer(conn.address);
+        NetworkServer.SpawnWithClientAuthority(clientPrefab, conn);
+        NetworkIdentity a;
+        ClientScene.Ready(conn);
+        Server.singleton.AddPlayer(conn.connectionId);
         base.OnServerConnect(conn);
-    }
-
-    public override void OnServerError(NetworkConnection conn, int errorCode)
-    {
-        Debug.Log("ERROR(server)");
-        base.OnServerError(conn, errorCode);
     }
 
     public override void OnServerDisconnect(NetworkConnection conn)
@@ -32,5 +39,34 @@ public class MyNetworkManager : NetworkManager
         Debug.Log("disconected(server)");
         Server.singleton.OnPlayerDisconnected();
         NetworkServer.DestroyPlayersForConnection(conn);
+      
+    }
+
+    public override void OnClientDisconnect(NetworkConnection conn)
+    {
+        Debug.Log("Disconnected(client)");
+    }
+
+
+    public static void SendMessageToServer(short chanel, string message)
+    {
+        var msg = new StringMessage(message);
+        singleton.client.Send(chanel, msg);
+    }
+
+    public static void SendMessageToClient(int connectionId, short chanel, string message)
+    {
+        NetworkServer.SendToClient(connectionId, chanel, new StringMessage(message));
+    }
+
+    void Update()
+    {
+        //if (client != null)
+        //{
+        //    if (currentClient.gameObject.activeSelf == false)
+        //    {
+        //        currentClient.gameObject.SetActive(true);
+        //    }
+        //}
     }
 }

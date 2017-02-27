@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using Facebook.MiniJSON;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -8,47 +9,61 @@ using UnityEngine.Networking.NetworkSystem;
 
 public class Server : NetworkBehaviour
 {
+    const short connect = 1000;
+    const short onlineStatusUpdate = 1001;
+    const short offlineStatusUpdate = 1002;
+    const short gameInvite = 1003;
+    const short onlineFriends = 1004;
+    private int shit = 0;
+    public MyNetworkManager networkManager;
     public const short GetRecieveFriends = 48;
     public const short UpdateDescription = 49;
     private DatabaseLayer DatabaseLayer;
     public static Server singleton;
-    private List<string> ConnectedIPs;
+    private List<int> ConnectionIDs;
 
-    public void AddPlayer(string IP)
+    public void AddPlayer(int connectionId)
     {
-        //ConnectedIPs.Add(new Player{IpAdress = IP});
+        ConnectionIDs.Add(connectionId);
+        shit = connectionId;
     }
-
-    public void UpdatePlayer(string IP, string FacebookID, List<string> firends)
+    public void UpdatePlayer(int connectionId, string FacebookId, List<string> firends)
     {
         //Player player = ConnectedIPs.Find(x => x.IpAdress == IP);
     }
 
+    public void test(int ID, short chanel, string message)
+    {
+        MyNetworkManager.SendMessageToClient(ID, chanel, message);
+    }
+
     public void OnPlayerDisconnected()
     {
-        List<string> currentlyConnectedIPs = new List<string>();
+        List<int> currentConnectionIDs = new List<int>();
         foreach (var connection in NetworkServer.connections)
         {
             if (connection != null)
             {
-                currentlyConnectedIPs.Add(connection.address.Substring(7));
+                currentConnectionIDs.Add(connection.connectionId);
             }
         }
-        for (int i = 0; i < this.ConnectedIPs.Count; i++)
+        for (int i = 0; i < this.ConnectionIDs.Count; i++)
         {
-            if (!currentlyConnectedIPs.Contains(this.ConnectedIPs[i]))
+            if (!currentConnectionIDs.Contains(this.ConnectionIDs[i]))
             {
-                DisconnectPlayer(this.ConnectedIPs[i]);
-                this.ConnectedIPs.RemoveAt(i);
+                DisconnectPlayer(this.ConnectionIDs[i]);
+                this.ConnectionIDs.RemoveAt(i);
                 i--;
             }
         }
     }
 
-    void DisconnectPlayer(string ip)
+    void DisconnectPlayer(int connectionID)
     {
-        DatabaseLayer.DisconectPlayer(ip);
-        SendUpdateToFriends(ip, false);
+        Dictionary<string, List<int>> onlineFriendsConnectionAndFbIds = DatabaseLayer.GetOnlineFriendsIds(connectionID);
+        SendUpdateToFriends(onlineFriendsConnectionAndFbIds.FirstOrDefault().Value, onlineFriendsConnectionAndFbIds.FirstOrDefault().Key, false);
+        DatabaseLayer.DisconectPlayer(connectionID);
+        //SendUpdateToFriends(connectionID, false);
     }
 
     /// <summary>
@@ -57,30 +72,84 @@ public class Server : NetworkBehaviour
     /// <param name="player">Player to send the notification to</param>
     /// <param name="UpdatedPlayer">Player that connected/disconnected</param>
     /// <param name="connected">connceted/disconnected</param>
-    private void SendUpdateToFriends(string adress, bool connected)
+    private void SendUpdateToFriends(List<int> onlineFriendsConnectionIds, string updatedClientFbId, bool connected)
     {
-        //TODO ImplementNotification
+        short chanel = connected ? onlineStatusUpdate : offlineStatusUpdate;
+        if (onlineFriendsConnectionIds == null || updatedClientFbId == null)
+            return;
+
+        foreach (var onlineFriendsConnectionId in onlineFriendsConnectionIds)
+        {
+            MyNetworkManager.SendMessageToClient(onlineFriendsConnectionId, chanel, updatedClientFbId);
+        }
     }
 
     public void OnNewPlayerConnected()
     {
         //sendRequest
     }
-    
-    void Start()
+
+    void Awake()
     {
+        singleton = this;
+        ConnectionIDs = new List<int>();
         NetworkServer.RegisterHandler(GetRecieveFriends, FillNewUserData);
-        NetworkServer.RegisterHandler(MsgType.Connect, OnConnected);
-        //DatabaseLayer = DatabaseLayer.GetInstance();
+        NetworkServer.RegisterHandler(connect, OnConnected);
+        NetworkServer.RegisterHandler(gameInvite, InviteFriend);
+        DatabaseLayer = DatabaseLayer.GetInstance();
+        //networkManager.StartServer();
+    }
+	
+	void OnEnable()
+	{
+		StartCoroutine(test123());
+	}
+    
+    [Server]
+    void InviteFriend(NetworkMessage netMsg)
+    {
+        string[] data = netMsg.ReadMessage<StringMessage>().value.Split(';');
+        int connectionId = DatabaseLayer.GetConnectionID(data[1]);
+        //MyNetworkManager.SendMessageToClient(connectionId, gameInvite, data[0] + ";" + data[2]);
+        MyNetworkManager.SendMessageToClient(netMsg.conn.connectionId, gameInvite, data[0] + ";" + data[2]);
     }
 
     [Server]
     void OnConnected(NetworkMessage netMsg)
     {
+        Debug.Log("here");
+        NetworkServer.SpawnObjects();
         string facebookID = netMsg.ReadMessage<StringMessage>().value;
-        string ip = netMsg.conn.address;
-        ConnectedIPs.Add(ip);
-        DatabaseLayer.ConnectOrAddPlayer(facebookID ,ip);
+        int connectionId = netMsg.conn.connectionId;
+        ConnectionIDs.Add(connectionId);
+        int result = DatabaseLayer.ConnectPlayer(facebookID, connectionId);
+        test(1,1000, "" + result);
+        if (result > 0)
+        {
+            Dictionary<string, List<int>> onlineFriendsConnectionAndFbIds = DatabaseLayer.GetOnlineFriendsIds(connectionId);
+            SendUpdateToFriends(onlineFriendsConnectionAndFbIds.First().Value, onlineFriendsConnectionAndFbIds.First().Key, true);
+            SendOnlineFriends(connectionId, DatabaseLayer.GetOnlineFriends(connectionId));
+        }
+        else
+        {
+        }
+    }
+
+    void SendOnlineFriends(int connectionId, List<string> fbFriendsIds)
+    {
+        test(1,1000,"fu1");
+        if (fbFriendsIds == null || fbFriendsIds.Count == 0)
+            return;
+        StringBuilder friendIds = new StringBuilder();
+        friendIds.Append(fbFriendsIds[0]);
+        for (int i = 1; i < fbFriendsIds.Count; i++)
+        {
+            friendIds.Append(";" + fbFriendsIds[i]);
+        }
+        Debug.Log("Server");
+        test(connectionId, onlineFriends, friendIds.ToString());
+        //MyNetworkManager.SendMessageToClient(1, 1000, friendIds.ToString());
+        MyNetworkManager.SendMessageToClient(1, 1000, "fu2");
     }
 
     [Server]
@@ -92,6 +161,15 @@ public class Server : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
+    }
 
+    IEnumerator test123()
+    {
+        while (true)
+        {
+            MyNetworkManager.SendMessageToClient(1, 1000, "update");
+            Debug.Log("test123");
+			yield return new WaitForSeconds(1);
+        }
     }
 }

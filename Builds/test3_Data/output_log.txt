@@ -1,0 +1,174 @@
+Initialize engine version: 5.5.1f1 (88d00a7498cd)
+GfxDevice: creating device client; threaded=1
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.0]
+    Renderer: Intel(R) HD Graphics 4000 (ID=0x166)
+    Vendor:   Intel
+    VRAM:     912 MB
+    Driver:   10.18.10.4425
+Begin MonoManager ReloadAssembly
+Platform assembly: C:\Users\NikolaiMilanov\Documents\UnityProjects\Thesis\Builds\test3_Data\Managed\UnityEngine.dll (this message is harmless)
+Loading C:\Users\NikolaiMilanov\Documents\UnityProjects\Thesis\Builds\test3_Data\Managed\UnityEngine.dll into Unity Child Domain
+Platform assembly: C:\Users\NikolaiMilanov\Documents\UnityProjects\Thesis\Builds\test3_Data\Managed\Assembly-CSharp-firstpass.dll (this message is harmless)
+Loading C:\Users\NikolaiMilanov\Documents\UnityProjects\Thesis\Builds\test3_Data\Managed\Assembly-CSharp-firstpass.dll into Unity Child Domain
+Platform assembly: C:\Users\NikolaiMilanov\Documents\UnityProjects\Thesis\Builds\test3_Data\Managed\Assembly-CSharp.dll (this message is harmless)
+Loading C:\Users\NikolaiMilanov\Documents\UnityProjects\Thesis\Builds\test3_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
+Platform assembly: C:\Users\NikolaiMilanov\Documents\UnityProjects\Thesis\Builds\test3_Data\Managed\UnityEngine.UI.dll (this message is harmless)
+Loading C:\Users\NikolaiMilanov\Documents\UnityProjects\Thesis\Builds\test3_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
+Platform assembly: C:\Users\NikolaiMilanov\Documents\UnityProjects\Thesis\Builds\test3_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
+Loading C:\Users\NikolaiMilanov\Documents\UnityProjects\Thesis\Builds\test3_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
+Platform assembly: C:\Users\NikolaiMilanov\Documents\UnityProjects\Thesis\Builds\test3_Data\Managed\UnityEngine.PlaymodeTestsRunner.dll (this message is harmless)
+Loading C:\Users\NikolaiMilanov\Documents\UnityProjects\Thesis\Builds\test3_Data\Managed\UnityEngine.PlaymodeTestsRunner.dll into Unity Child Domain
+Platform assembly: C:\Users\NikolaiMilanov\Documents\UnityProjects\Thesis\Builds\test3_Data\Managed\Facebook.Unity.dll (this message is harmless)
+Loading C:\Users\NikolaiMilanov\Documents\UnityProjects\Thesis\Builds\test3_Data\Managed\Facebook.Unity.dll into Unity Child Domain
+Platform assembly: C:\Users\NikolaiMilanov\Documents\UnityProjects\Thesis\Builds\test3_Data\Managed\Facebook.Unity.Arcade.dll (this message is harmless)
+Loading C:\Users\NikolaiMilanov\Documents\UnityProjects\Thesis\Builds\test3_Data\Managed\Facebook.Unity.Arcade.dll into Unity Child Domain
+Platform assembly: C:\Users\NikolaiMilanov\Documents\UnityProjects\Thesis\Builds\test3_Data\Managed\FacebookNamedPipeClient.dll (this message is harmless)
+Loading C:\Users\NikolaiMilanov\Documents\UnityProjects\Thesis\Builds\test3_Data\Managed\FacebookNamedPipeClient.dll into Unity Child Domain
+Platform assembly: C:\Users\NikolaiMilanov\Documents\UnityProjects\Thesis\Builds\test3_Data\Managed\Facebook.Unity.Settings.dll (this message is harmless)
+Loading C:\Users\NikolaiMilanov\Documents\UnityProjects\Thesis\Builds\test3_Data\Managed\Facebook.Unity.Settings.dll into Unity Child Domain
+Platform assembly: C:\Users\NikolaiMilanov\Documents\UnityProjects\Thesis\Builds\test3_Data\Managed\Mono.Data.Sqlite.dll (this message is harmless)
+Loading C:\Users\NikolaiMilanov\Documents\UnityProjects\Thesis\Builds\test3_Data\Managed\Mono.Data.Sqlite.dll into Unity Child Domain
+Platform assembly: C:\Users\NikolaiMilanov\Documents\UnityProjects\Thesis\Builds\test3_Data\Managed\Photon3Unity3D.dll (this message is harmless)
+Loading C:\Users\NikolaiMilanov\Documents\UnityProjects\Thesis\Builds\test3_Data\Managed\Photon3Unity3D.dll into Unity Child Domain
+Platform assembly: C:\Users\NikolaiMilanov\Documents\UnityProjects\Thesis\Builds\test3_Data\Managed\System.Data.dll (this message is harmless)
+Loading C:\Users\NikolaiMilanov\Documents\UnityProjects\Thesis\Builds\test3_Data\Managed\System.Data.dll into Unity Child Domain
+- Completed reload, in  0.404 seconds
+Platform assembly: C:\Users\NikolaiMilanov\Documents\UnityProjects\Thesis\Builds\test3_Data\Managed\System.Core.dll (this message is harmless)
+Platform assembly: C:\Users\NikolaiMilanov\Documents\UnityProjects\Thesis\Builds\test3_Data\Managed\System.dll (this message is harmless)
+desktop: 1920x1080 60Hz; virtual: 1920x1080 at 0,0
+<RI> Initializing input.
+<RI> Input initialized.
+<RI> Initialized touch support.
+UnloadTime: 2.170472 ms
+Platform assembly: C:\Users\NikolaiMilanov\Documents\UnityProjects\Thesis\Builds\test3_Data\Managed\System.Transactions.dll (this message is harmless)
+Platform assembly: C:\Users\NikolaiMilanov\Documents\UnityProjects\Thesis\Builds\test3_Data\Managed\System.Xml.dll (this message is harmless)
+Failed to load 'C:/Users/NikolaiMilanov/Documents/UnityProjects/Thesis/Builds/test3_Data/Plugins/sqlite3.dll', expected x86 architecture, but was x64 architecture. You must recompile your plugin for x86 architecture.
+ 
+(Filename:  Line: 141)
+
+Fallback handler could not load library C:/Users/NikolaiMilanov/Documents/UnityProjects/Thesis/Builds/test3_Data/Mono/.\C:/Users/NikolaiMilanov/Documents/UnityProjects/Thesis/Builds/test3_Data/Plugins/sqlite3.dll
+Fallback handler could not load library C:/Users/NikolaiMilanov/Documents/UnityProjects/Thesis/Builds/test3_Data/Mono/.\C:/Users/NikolaiMilanov/Documents/UnityProjects/Thesis/Builds/test3_Data/Plugins/sqlite3
+Fallback handler could not load library C:/Users/NikolaiMilanov/Documents/UnityProjects/Thesis/Builds/test3_Data/Mono/libC:/Users/NikolaiMilanov/Documents/UnityProjects/Thesis/Builds/test3_Data/Plugins/sqlite3.dll
+Fallback handler could not load library C:/Users/NikolaiMilanov/Documents/UnityProjects/Thesis/Builds/test3_Data/Mono/.\libC:/Users/NikolaiMilanov/Documents/UnityProjects/Thesis/Builds/test3_Data/Plugins/sqlite3.dll
+Fallback handler could not load library C:/Users/NikolaiMilanov/Documents/UnityProjects/Thesis/Builds/test3_Data/Mono/libC:/Users/NikolaiMilanov/Documents/UnityProjects/Thesis/Builds/test3_Data/Plugins/sqlite3.dll
+Failed to load 'C:/Users/NikolaiMilanov/Documents/UnityProjects/Thesis/Builds/test3_Data/Plugins/sqlite3.dll', expected x86 architecture, but was x64 architecture. You must recompile your plugin for x86 architecture.
+ 
+(Filename:  Line: 141)
+
+Fallback handler could not load library C:/Users/NikolaiMilanov/Documents/UnityProjects/Thesis/Builds/test3_Data/Mono/.\C:/Users/NikolaiMilanov/Documents/UnityProjects/Thesis/Builds/test3_Data/Plugins/sqlite3.dll
+Fallback handler could not load library C:/Users/NikolaiMilanov/Documents/UnityProjects/Thesis/Builds/test3_Data/Mono/.\C:/Users/NikolaiMilanov/Documents/UnityProjects/Thesis/Builds/test3_Data/Plugins/sqlite3
+Fallback handler could not load library C:/Users/NikolaiMilanov/Documents/UnityProjects/Thesis/Builds/test3_Data/Mono/libC:/Users/NikolaiMilanov/Documents/UnityProjects/Thesis/Builds/test3_Data/Plugins/sqlite3.dll
+Fallback handler could not load library C:/Users/NikolaiMilanov/Documents/UnityProjects/Thesis/Builds/test3_Data/Mono/.\libC:/Users/NikolaiMilanov/Documents/UnityProjects/Thesis/Builds/test3_Data/Plugins/sqlite3.dll
+Fallback handler could not load library C:/Users/NikolaiMilanov/Documents/UnityProjects/Thesis/Builds/test3_Data/Mono/libC:/Users/NikolaiMilanov/Documents/UnityProjects/Thesis/Builds/test3_Data/Plugins/sqlite3.dll
+Failed to load 'C:/Users/NikolaiMilanov/Documents/UnityProjects/Thesis/Builds/test3_Data/Plugins/sqlite3.dll', expected x86 architecture, but was x64 architecture. You must recompile your plugin for x86 architecture.
+ 
+(Filename:  Line: 141)
+
+Fallback handler could not load library C:/Users/NikolaiMilanov/Documents/UnityProjects/Thesis/Builds/test3_Data/Mono/.\C:/Users/NikolaiMilanov/Documents/UnityProjects/Thesis/Builds/test3_Data/Plugins/sqlite3.dll
+Fallback handler could not load library C:/Users/NikolaiMilanov/Documents/UnityProjects/Thesis/Builds/test3_Data/Mono/.\C:/Users/NikolaiMilanov/Documents/UnityProjects/Thesis/Builds/test3_Data/Plugins/sqlite3
+Fallback handler could not load library C:/Users/NikolaiMilanov/Documents/UnityProjects/Thesis/Builds/test3_Data/Mono/libC:/Users/NikolaiMilanov/Documents/UnityProjects/Thesis/Builds/test3_Data/Plugins/sqlite3.dll
+Fallback handler could not load library C:/Users/NikolaiMilanov/Documents/UnityProjects/Thesis/Builds/test3_Data/Mono/.\libC:/Users/NikolaiMilanov/Documents/UnityProjects/Thesis/Builds/test3_Data/Plugins/sqlite3.dll
+Fallback handler could not load library C:/Users/NikolaiMilanov/Documents/UnityProjects/Thesis/Builds/test3_Data/Mono/libC:/Users/NikolaiMilanov/Documents/UnityProjects/Thesis/Builds/test3_Data/Plugins/sqlite3.dll
+DllNotFoundException: C:/Users/NikolaiMilanov/Documents/UnityProjects/Thesis/Builds/test3_Data/Plugins/sqlite3.dll
+  at (wrapper managed-to-native) Mono.Data.Sqlite.UnsafeNativeMethods:sqlite3_open_v2 (byte[],intptr&,int,intptr)
+  at Mono.Data.Sqlite.SQLite3.Open (System.String strFilename, SQLiteOpenFlagsEnum flags, Int32 maxPoolSize, Boolean usePool) [0x00000] in <filename unknown>:0 
+  at Mono.Data.Sqlite.SqliteConnection.Open () [0x00000] in <filename unknown>:0 
+  at DatabaseLayer..ctor () [0x00000] in <filename unknown>:0 
+  at DatabaseLayer.GetInstance () [0x00000] in <filename unknown>:0 
+  at Server.Awake () [0x00000] in <filename unknown>:0 
+UnityEngine.GameObject:SetActive(Boolean)
+UnityEngine.Networking.NetworkServer:SpawnObjects()
+UnityEngine.Networking.NetworkManager:StartServer(MatchInfo, ConnectionConfig, Int32)
+UnityEngine.Networking.NetworkManager:StartServer(MatchInfo)
+UnityEngine.Networking.NetworkManager:StartServer()
+NetworkingModeController:OnServerClicked()
+UnityEngine.Events.InvokableCall:Invoke(Object[])
+UnityEngine.Events.InvokableCallList:Invoke(Object[])
+UnityEngine.Events.UnityEventBase:Invoke(Object[])
+UnityEngine.Events.UnityEvent:Invoke()
+UnityEngine.UI.Button:Press()
+UnityEngine.UI.Button:OnPointerClick(PointerEventData)
+UnityEngine.EventSystems.ExecuteEvents:Execute(IPointerClickHandler, BaseEventData)
+UnityEngine.EventSystems.ExecuteEvents:Execute(GameObject, BaseEventData, EventFunction`1)
+UnityEngine.EventSystems.StandaloneInputModule:ProcessMousePress(MouseButtonEventData)
+UnityEngine.EventSystems.StandaloneInputModule:ProcessMouseEvent(Int32)
+UnityEngine.EventSystems.StandaloneInputModule:ProcessMouseEvent()
+UnityEngine.EventSystems.StandaloneInputModule:Process()
+UnityEngine.EventSystems.EventSystem:Update()
+ 
+(Filename:  Line: -1)
+
+client conected(server)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+here
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at Server.OnConnected (UnityEngine.Networking.NetworkMessage netMsg) [0x00000] in <filename unknown>:0 
+  at UnityEngine.Networking.NetworkConnection.HandleReader (UnityEngine.Networking.NetworkReader reader, Int32 receivedSize, Int32 channelId) [0x00000] in <filename unknown>:0 
+  at UnityEngine.Networking.NetworkConnection.HandleBytes (System.Byte[] buffer, Int32 receivedSize, Int32 channelId) [0x00000] in <filename unknown>:0 
+  at UnityEngine.Networking.NetworkConnection.TransportRecieve (System.Byte[] bytes, Int32 numBytes, Int32 channelId) [0x00000] in <filename unknown>:0 
+  at UnityEngine.Networking.NetworkServer.OnData (UnityEngine.Networking.NetworkConnection conn, Int32 receivedSize, Int32 channelId) [0x00000] in <filename unknown>:0 
+  at UnityEngine.Networking.NetworkServer+ServerSimpleWrapper.OnData (UnityEngine.Networking.NetworkConnection conn, Int32 receivedSize, Int32 channelId) [0x00000] in <filename unknown>:0 
+  at UnityEngine.Networking.NetworkServerSimple.HandleData (Int32 connectionId, Int32 channelId, Int32 receivedSize, Byte error) [0x00000] in <filename unknown>:0 
+  at UnityEngine.Networking.NetworkServerSimple.Update () [0x00000] in <filename unknown>:0 
+  at UnityEngine.Networking.NetworkServer.InternalUpdate () [0x00000] in <filename unknown>:0 
+  at UnityEngine.Networking.NetworkServer.Update () [0x00000] in <filename unknown>:0 
+  at UnityEngine.Networking.NetworkIdentity.UNetStaticUpdate () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+Log: connection {1} has been disconnected by timeout; address {::ffff:87.116.75.165:54007}
+disconected(server)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at Server.DisconnectPlayer (Int32 connectionID) [0x00000] in <filename unknown>:0 
+  at Server.OnPlayerDisconnected () [0x00000] in <filename unknown>:0 
+  at MyNetworkManager.OnServerDisconnect (UnityEngine.Networking.NetworkConnection conn) [0x00000] in <filename unknown>:0 
+  at UnityEngine.Networking.NetworkManager.OnServerDisconnectInternal (UnityEngine.Networking.NetworkMessage netMsg) [0x00000] in <filename unknown>:0 
+  at UnityEngine.Networking.NetworkConnection.InvokeHandler (Int16 msgType, UnityEngine.Networking.NetworkReader reader, Int32 channelId) [0x00000] in <filename unknown>:0 
+  at UnityEngine.Networking.NetworkConnection.InvokeHandlerNoData (Int16 msgType) [0x00000] in <filename unknown>:0 
+  at UnityEngine.Networking.NetworkServer.OnDisconnected (UnityEngine.Networking.NetworkConnection conn) [0x00000] in <filename unknown>:0 
+  at UnityEngine.Networking.NetworkServer+ServerSimpleWrapper.OnDisconnected (UnityEngine.Networking.NetworkConnection conn) [0x00000] in <filename unknown>:0 
+  at UnityEngine.Networking.NetworkServerSimple.HandleDisconnect (Int32 connectionId, Byte error) [0x00000] in <filename unknown>:0 
+  at UnityEngine.Networking.NetworkServerSimple.Update () [0x00000] in <filename unknown>:0 
+  at UnityEngine.Networking.NetworkServer.InternalUpdate () [0x00000] in <filename unknown>:0 
+  at UnityEngine.Networking.NetworkServer.Update () [0x00000] in <filename unknown>:0 
+  at UnityEngine.Networking.NetworkIdentity.UNetStaticUpdate () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+client conected(server)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Log: connection {1} has been disconnected by timeout; address {::ffff:87.116.75.165:51991}
+disconected(server)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at Server.DisconnectPlayer (Int32 connectionID) [0x00000] in <filename unknown>:0 
+  at Server.OnPlayerDisconnected () [0x00000] in <filename unknown>:0 
+  at MyNetworkManager.OnServerDisconnect (UnityEngine.Networking.NetworkConnection conn) [0x00000] in <filename unknown>:0 
+  at UnityEngine.Networking.NetworkManager.OnServerDisconnectInternal (UnityEngine.Networking.NetworkMessage netMsg) [0x00000] in <filename unknown>:0 
+  at UnityEngine.Networking.NetworkConnection.InvokeHandler (Int16 msgType, UnityEngine.Networking.NetworkReader reader, Int32 channelId) [0x00000] in <filename unknown>:0 
+  at UnityEngine.Networking.NetworkConnection.InvokeHandlerNoData (Int16 msgType) [0x00000] in <filename unknown>:0 
+  at UnityEngine.Networking.NetworkServer.OnDisconnected (UnityEngine.Networking.NetworkConnection conn) [0x00000] in <filename unknown>:0 
+  at UnityEngine.Networking.NetworkServer+ServerSimpleWrapper.OnDisconnected (UnityEngine.Networking.NetworkConnection conn) [0x00000] in <filename unknown>:0 
+  at UnityEngine.Networking.NetworkServerSimple.HandleDisconnect (Int32 connectionId, Byte error) [0x00000] in <filename unknown>:0 
+  at UnityEngine.Networking.NetworkServerSimple.Update () [0x00000] in <filename unknown>:0 
+  at UnityEngine.Networking.NetworkServer.InternalUpdate () [0x00000] in <filename unknown>:0 
+  at UnityEngine.Networking.NetworkServer.Update () [0x00000] in <filename unknown>:0 
+  at UnityEngine.Networking.NetworkIdentity.UNetStaticUpdate () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+Setting up 1 worker threads for Enlighten.
+  Thread -> id: 1d20 -> priority: 1 

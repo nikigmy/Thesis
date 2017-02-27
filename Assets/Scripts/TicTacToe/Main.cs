@@ -71,7 +71,6 @@ public class Main : MonoBehaviour
 
     void CheckForWin()
     {
-        Player winner;
         //stupid way
         CheckCells(0, 1, 2);
         CheckCells(3, 4, 5);

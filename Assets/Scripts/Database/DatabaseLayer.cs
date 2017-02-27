@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Data;
 using System.Data.Common;
+using System.Linq;
 using System.Text;
 using Mono.Data.Sqlite;
 
 public class DatabaseLayer
 {
-    const string connectionPath = "file:C:/Users/NikolaiMilanov/Documents/UnityProjects/Thesis/Assets/Database/Database.s3db";
+    const string connectionPath = "URI=file:C:/Users/NikolaiMilanov/Documents/UnityProjects/Thesis/Assets/Database/Database.s3db";
     private static DatabaseLayer instance;
     private IDbConnection databaseConnection;
 
@@ -32,17 +33,17 @@ public class DatabaseLayer
         }
     }
 
-    public void ConnectOrAddPlayer(string facebookID, string currentIP)
+    //tested for connect
+    public int ConnectPlayer(string facebookID, int connectionID)
     {
-        IDbCommand dbcmd = databaseConnection.CreateCommand();
         //string sqlQuery = "SELECT FacebookID,Description,Name,OnlineStatus " + "FROM Players" + " WHERE OnlineStatus = 1";
-        string sqlQuery = " UPDATE Players SET CurrentIP = " + currentIP + ", OnlineStatus = " + 1 + " WHERE FacebookID = " + facebookID;
-        dbcmd.CommandText = sqlQuery;
-        int changed = dbcmd.ExecuteNonQuery();
-        if (changed == 0)
-        {
-            string query = "INSERT INTO Players ( FacebookID, CurrentIP, OnlineStatus) VALUES(" + facebookID + ", " + currentIP + ", " + 1 + ");";
-        }
+        string sqlQuery = " UPDATE Players SET OnlineStatus = " + 1 + ", ConnectionID = " + connectionID + " WHERE FacebookID = " + facebookID + ";";
+        int cols = ExecuteNonQuery(sqlQuery);
+        return cols;
+        //if (changed == 0)
+        //{
+        //    string query = "INSERT INTO Players ( FacebookID, CurrentIP, OnlineStatus) VALUES(" + facebookID + ", " + connectionID + ", " + 1 + ");";
+        //}
         //IDataReader reader = dbcmd.ExecuteReader();
         //while (reader.Read())
         //{
@@ -59,7 +60,7 @@ public class DatabaseLayer
     {
         int NewPlayerId = GetTotalPlayersCount() + 1;
         AddPlayer(facebookID, currentIP);
-        
+
         List<int> friendIds = GetFriendIDs(friendFbIds);
         PopulateFriendsTable(NewPlayerId, friendIds);
     }
@@ -87,19 +88,21 @@ public class DatabaseLayer
         return count;
     }
 
-    private void ExecuteNonQuery(string query)
+    //tested
+    private int ExecuteNonQuery(string query)
     {
         IDbCommand dbcmd = databaseConnection.CreateCommand();
         dbcmd.CommandText = query;
-        dbcmd.ExecuteNonQuery();
+        int changedColumns = dbcmd.ExecuteNonQuery();
 
         dbcmd.Dispose();
         dbcmd = null;
+        return changedColumns;
     }
 
-    private void AddPlayer(string facebookID, string currentIP)
+    public void AddPlayer(string facebookID, string currentIP)
     {
-        string query = "INSERT INTO Players ( FacebookID, Description, CurrentIP, OnlineStatus) VALUES(" + facebookID + ", " +" "+", "+ currentIP + ", " + 1 + ");";
+        string query = "INSERT INTO Players ( FacebookID, Description, CurrentIP, OnlineStatus) VALUES(" + facebookID + ", " + " " + ", " + currentIP + ", " + 1 + ");";
         ExecuteNonQuery(query);
     }
 
@@ -111,6 +114,33 @@ public class DatabaseLayer
         return reader;
     }
 
+    //for notifications
+    private List<int> GetFriendIDs(int cliendDbId)
+    {
+        List<int> friendIds = new List<int>();
+        string query = "SELECT Friend1ID, Friend2ID FROM Friends WHERE Friend1ID = " + cliendDbId + " OR Friend2ID = " + cliendDbId + ";";
+
+        IDataReader reader = ReadFromDatabase(query);
+        while (reader.Read())
+        {
+            int ID1 = reader.GetInt32(0);
+            int ID2 = reader.GetInt32(1);
+            if (ID1 == cliendDbId)
+            {
+                friendIds.Add(ID2);
+            }
+            else
+            {
+                friendIds.Add(ID1);
+            }
+        }
+
+        reader.Close();
+        reader = null;
+        return friendIds;
+    }
+
+    //for registration
     private List<int> GetFriendIDs(List<string> friendFbIds)
     {
         List<int> friendIds = new List<int>();
@@ -135,15 +165,10 @@ public class DatabaseLayer
         return friendIds;
     }
 
-    public void DisconectPlayer(string currentIP)
+    public void DisconectPlayer(int connectionID)
     {
-        IDbCommand dbcmd = databaseConnection.CreateCommand();
-        string sqlQuery = " UPDATE Players SET OnlineStatus = " + 0 + ", CurrentIP =  WHERE CurrentIP = " + currentIP + ";";
-        dbcmd.CommandText = sqlQuery;
-        dbcmd.ExecuteNonQuery();
-
-        dbcmd.Dispose();
-        dbcmd = null;
+        string sqlQuery = " UPDATE Players SET OnlineStatus = " + 0 + ", ConnectionID = -1 WHERE ConnectionID = " + connectionID + ";";
+        int a = ExecuteNonQuery(sqlQuery);
     }
 
     public void UpdateDescription(string facebookID, string Description)
@@ -157,8 +182,90 @@ public class DatabaseLayer
         dbcmd = null;
     }
 
-    public void GetFriends(string ip)
+    public List<string> GetOnlineFriends(int connectionID)
     {
+        int DbId = 0;
+        string getIDQuery = "SELECT ID FROM Players WHERE ConnectionID = " + connectionID + ";";
+        IDataReader reader = ReadFromDatabase(getIDQuery);
+        while (reader.Read())
+        {
+            DbId = reader.GetInt32(0);
+        }
+        reader.Close();
+        reader = null;
 
+        List<int> friendDbIds = GetFriendIDs(DbId);
+        StringBuilder query = new StringBuilder();
+        query.Append("SELECT FacebookID FROM Players WHERE ");
+        query.Append("(ID = " + friendDbIds[0] + " AND OnlineStatus = 1)");
+        for (int i = 1; i < friendDbIds.Count; i++)
+        {
+            query.Append(" OR (ID = " + friendDbIds[i] + " AND OnlineStatus = 1)");
+        }
+        query.Append(";");
+
+        IDataReader connectionIdReader = ReadFromDatabase(query.ToString());
+        List<string> onlineFriendsFbIds = new List<string>();
+        while (connectionIdReader.Read())
+        {
+            string facebookId = connectionIdReader.GetString(0);
+            onlineFriendsFbIds.Add(facebookId);
+        }
+        connectionIdReader.Close();
+        connectionIdReader = null;
+
+        return onlineFriendsFbIds;
+    }
+
+    public Dictionary<string, List<int>> GetOnlineFriendsIds(int connectionID)
+    {
+        int DbId = 0;
+        string FbId = "";
+        string getIDQuery = "SELECT ID, FacebookID FROM Players WHERE ConnectionID = " + connectionID + ";";
+        //string getCountQuery = "SELECT COUNT(ID) AS count FROM Players;";
+        IDataReader reader = ReadFromDatabase(getIDQuery);
+        while (reader.Read())
+        {
+            DbId = reader.GetInt32(0);
+            FbId = reader.GetString(1);
+        }
+        reader.Close();
+        reader = null;
+
+        List<int> friendDbIds = GetFriendIDs(DbId);
+        if (friendDbIds.Count == 0) return new Dictionary<string, List<int>>();
+        StringBuilder query = new StringBuilder();
+        query.Append("SELECT ConnectionID FROM Players WHERE ");
+        query.Append("(ID = " + friendDbIds[0] + " AND OnlineStatus = 1)");
+        for (int i = 1; i < friendDbIds.Count; i++)
+        {
+            query.Append(" OR (ID = " + friendDbIds[i] + " AND OnlineStatus = 1)");
+        }
+        query.Append(";");
+        IDataReader connectionIdReader = ReadFromDatabase(query.ToString());
+        Dictionary<string, List<int>> conectionToFbDictionary = new Dictionary<string, List<int>>();
+        conectionToFbDictionary.Add(FbId, new List<int>());
+        while (connectionIdReader.Read())
+        {
+            int connectionId = connectionIdReader.GetInt32(0);
+            conectionToFbDictionary.First().Value.Add(connectionId);
+        }
+        connectionIdReader.Close();
+        connectionIdReader = null;
+        return conectionToFbDictionary;
+    }
+
+    public int GetConnectionID(string fbId)
+    {
+        string query = "SELECT ConnectionID FROM Players WHERE FacebookID = " + fbId + ";";
+        IDataReader reader = ReadFromDatabase(query);
+        int connectionId = 0;
+        while (reader.Read())
+        {
+            connectionId = reader.GetInt32(0);
+        }
+        reader.Close();
+        reader = null;
+        return connectionId;
     }
 }
