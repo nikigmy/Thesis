@@ -14,6 +14,7 @@ public class NetworkHandler : NetworkBehaviour
 	void Start () {
         main = FindObjectsOfType<MainOnline>()[0];
         NetworkManager = ClientSpawner.singleton.networkManager;
+        MyNetworkManager.SendMessageToServer(inGame, "chose");
     }
 
     public void RegisterHandlers()
@@ -25,7 +26,16 @@ public class NetworkHandler : NetworkBehaviour
     [Client]
     void InGame(NetworkMessage msg)
     {
-        int turn = int.Parse(msg.ReadMessage<StringMessage>().value);
+        string message = msg.ReadMessage<StringMessage>().value;
+        if (message == "first")
+        {
+            main.thisPlayer  = Main.Player.PlayerOne;
+        }
+        else if (message == "second")
+        {
+            main.thisPlayer = Main.Player.PlayerTwo;
+        }
+        int turn = int.Parse(message);
         main.PlaceTurn(turn);
     }
 }

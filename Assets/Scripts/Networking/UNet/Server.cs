@@ -102,6 +102,7 @@ public class Server : NetworkBehaviour
         NetworkServer.RegisterHandler(gameInvite, GameInvites);
         NetworkServer.RegisterHandler(inGame, InGame);
         DatabaseLayer = DatabaseLayer.GetInstance();
+        currentGames = new List<Game>();
         //networkManager.StartServer();
     }
 
@@ -117,16 +118,26 @@ public class Server : NetworkBehaviour
         MyNetworkManager.SendMessageToClient(invitedConnectionId, gameInvite, data[0] + ";" + data[2] + ";" + data[3]);
     }
 
+    private bool chosen = false;
     [Server]
     void InGame(NetworkMessage netMsg)
     {
+        string message = netMsg.ReadMessage<StringMessage>().value;
         int senderId = netMsg.conn.connectionId;
         int recieverId = 0;
         Game game =
             currentGames.First(x => x.firstId == senderId || x.secondId == senderId);
         recieverId = game.firstId == senderId ? game.secondId : game.firstId;
-
-        MyNetworkManager.SendMessageToClient(recieverId, inGame, netMsg.ReadMessage<StringMessage>().value);
+        if (message == "chose" && !chosen)
+        {
+            MyNetworkManager.SendMessageToClient(netMsg.conn.connectionId, inGame, "first");
+            MyNetworkManager.SendMessageToClient(recieverId, inGame, "second");
+            chosen = true;
+        }
+        else
+        {
+            MyNetworkManager.SendMessageToClient(recieverId, inGame, message);
+        }
     }
 
     [Server]

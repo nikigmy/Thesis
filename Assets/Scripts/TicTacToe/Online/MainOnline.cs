@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class MainOnline : MonoBehaviour
 {
-    Main.Player thisPlayer = Main.Player.PlayerOne;
+    public Main.Player thisPlayer = Main.Player.PlayerOne;
 
     public GameObject EndGamePanel;
     public Text EndGameText;
