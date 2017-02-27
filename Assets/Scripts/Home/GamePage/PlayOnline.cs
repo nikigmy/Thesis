@@ -51,13 +51,18 @@ public class PlayOnline : MonoBehaviour
     {
         invitePanel.SetActive(true);
         currentInvited = fbId;
-        message.text = "You have invited " + DataStorage.People.First(x => x.ID == fbId).Name + " to play Tic-Tac-Toe";
+        message.text = "You have invited " + DataStorage.People.First(x => x.ID == fbId).Name + " to play Tic-Tac-Toe.";
         Debug.Log("FINISH THIS");
     }
 
     public void OnAbort()
     {
-        MyNetworkManager.SendMessageToServer(1003, DataStorage.ThisUser.ID + ";" + currentInvited + ";" + GamePanel.GameID + ";" + ";abort");
+        MyNetworkManager.SendMessageToServer(1003, DataStorage.ThisUser.ID + ";" + currentInvited + ";" + GamePanel.GameID + ";abort");
         invitePanel.SetActive(false);
+    }
+
+    public void OnDecline()
+    {
+        message.text = DataStorage.People.First(x => x.ID == currentInvited).Name + "have declined your request.";
     }
 }

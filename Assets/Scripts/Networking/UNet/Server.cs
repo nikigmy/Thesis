@@ -15,7 +15,8 @@ public class Server : NetworkBehaviour
     const short offlineStatusUpdate = 1002;
     const short gameInvite = 1003;
     const short onlineFriends = 1004;
-    private int shit = 0;
+    const short inGame = 1005;
+
     public MyNetworkManager networkManager;
     public const short GetRecieveFriends = 48;
     public const short UpdateDescription = 49;
@@ -23,10 +24,17 @@ public class Server : NetworkBehaviour
     public static Server singleton;
     private List<int> ConnectionIDs;
 
+    internal class Game
+    {
+        public int firstId;
+        public int secondId;
+    }
+
+    private List<Game> currentGames;
+
     public void AddPlayer(int connectionId)
     {
         ConnectionIDs.Add(connectionId);
-        shit = connectionId;
     }
     public void UpdatePlayer(int connectionId, string FacebookId, List<string> firends)
     {
@@ -92,6 +100,7 @@ public class Server : NetworkBehaviour
         NetworkServer.RegisterHandler(GetRecieveFriends, FillNewUserData);
         NetworkServer.RegisterHandler(connect, OnConnected);
         NetworkServer.RegisterHandler(gameInvite, GameInvites);
+        NetworkServer.RegisterHandler(inGame, InGame);
         DatabaseLayer = DatabaseLayer.GetInstance();
         //networkManager.StartServer();
     }
@@ -101,7 +110,23 @@ public class Server : NetworkBehaviour
     {
         string[] data = netMsg.ReadMessage<StringMessage>().value.Split(';');
         int invitedConnectionId = DatabaseLayer.GetConnectionID(data[1]);
+        if (data[3] == "accept")
+        {
+            currentGames.Add(new Game() {firstId = netMsg.conn.connectionId, secondId = invitedConnectionId});
+        }
         MyNetworkManager.SendMessageToClient(invitedConnectionId, gameInvite, data[0] + ";" + data[2] + ";" + data[3]);
+    }
+
+    [Server]
+    void InGame(NetworkMessage netMsg)
+    {
+        int senderId = netMsg.conn.connectionId;
+        int recieverId = 0;
+        Game game =
+            currentGames.First(x => x.firstId == senderId || x.secondId == senderId);
+        recieverId = game.firstId == senderId ? game.secondId : game.firstId;
+
+        MyNetworkManager.SendMessageToClient(recieverId, inGame, netMsg.ReadMessage<StringMessage>().value);
     }
 
     [Server]
@@ -121,6 +146,7 @@ public class Server : NetworkBehaviour
         }
         else
         {
+            //register user
         }
     }
 

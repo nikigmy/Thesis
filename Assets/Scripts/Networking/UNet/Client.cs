@@ -12,6 +12,7 @@ public class Client : NetworkBehaviour
     const short offlineStatusUpdate = 1002;
     const short gameInvite = 1003;
     const short onlineFriends = 1004;
+    const short inGame = 1005;
 
     public NetworkIdentity a;
     public MyNetworkManager networkingManager;
@@ -81,6 +82,7 @@ public class Client : NetworkBehaviour
             }
             case "decline":
             {
+                    GameInvites.singleton.OnDecline();
                 break;
             }
             case "abort":

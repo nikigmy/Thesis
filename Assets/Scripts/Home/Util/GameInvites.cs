@@ -12,10 +12,10 @@ public class GameInvites : MonoBehaviour
     private int currentGameId;
     private string currentInviterFbId;
 
-    void Start ()
-	{
-	    singleton = this;
-	}
+    void Start()
+    {
+        singleton = this;
+    }
 
     public void Invite(string fbId, int gameId)
     {
@@ -34,13 +34,13 @@ public class GameInvites : MonoBehaviour
 
     public void OnAccept()
     {
-        MyNetworkManager.SendMessageToServer(1003, DataStorage.ThisUser.ID + ";" + currentInviterFbId + ";" + currentGameId+ ";" + ";accept");
+        MyNetworkManager.SendMessageToServer(1003, DataStorage.ThisUser.ID + ";" + currentInviterFbId + ";" + currentGameId + ";accept");
         panel.SetActive(false);
     }
 
     public void OnDecline()
     {
-        MyNetworkManager.SendMessageToServer(1003, DataStorage.ThisUser.ID + ";" + currentInviterFbId + ";" + currentGameId + ";" + ";decline");
+        MyNetworkManager.SendMessageToServer(1003, DataStorage.ThisUser.ID + ";" + currentInviterFbId + ";" + currentGameId + ";decline");
         panel.SetActive(false);
     }
 }
