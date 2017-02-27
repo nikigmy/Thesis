@@ -12,11 +12,12 @@ public class MainOnline : MonoBehaviour
     public Text EndGameText;
 
     private Main.Player turn;//Should be global
-
+    public static MainOnline singleton;
     private CellOnline[] cells;
     // Use this for initialization
     void Start()
     {
+        singleton = this;
         RectTransform rectTransform = GetComponent<RectTransform>();
         Debug.Log(rectTransform.rect.width);
         GridLayoutGroup layoutGroup = GetComponent<GridLayoutGroup>();

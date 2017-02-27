@@ -44,6 +44,7 @@ public class Client : NetworkBehaviour
         networkingManager.client.RegisterHandler(offlineStatusUpdate, FriendDisconected);
         networkingManager.client.RegisterHandler(gameInvite, GameInvite);
         networkingManager.client.RegisterHandler(onlineFriends, OnlineFriends);
+        networkingManager.client.RegisterHandler(inGame, InGame);
     }
 
     [Client]
@@ -97,7 +98,21 @@ public class Client : NetworkBehaviour
         Debug.Log("FINISH THIS");
 
     }
-
+    [Client]
+    void InGame(NetworkMessage msg)
+    {
+        string message = msg.ReadMessage<StringMessage>().value;
+        if (message == "first")
+        {
+            MainOnline.singleton.thisPlayer = Main.Player.PlayerOne;
+        }
+        else if (message == "second")
+        {
+            MainOnline.singleton.thisPlayer = Main.Player.PlayerTwo;
+        }
+        int turn = int.Parse(message);
+        MainOnline.singleton.PlaceTurn(turn);
+    }
     public void InviteFriend(string cliendFbId, string friendFbId, int gameIndex)
     {
         MyNetworkManager.SendMessageToServer(gameInvite, cliendFbId + ";" + friendFbId + ";" + gameIndex);
