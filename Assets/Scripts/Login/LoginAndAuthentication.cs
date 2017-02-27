@@ -16,6 +16,7 @@ public class LoginAndAuthentication : MonoBehaviour {
         FB.Init(SetInit);
         DataStorage.People = new List<DataStorage.Person>();
         DataStorage.Games = new List<DataStorage.Game>();
+        DataStorage.OnlineFriends = new List<string>();
     }
 
     private void SetInit()

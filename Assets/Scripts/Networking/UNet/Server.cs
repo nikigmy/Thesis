@@ -99,11 +99,6 @@ public class Server : NetworkBehaviour
         DatabaseLayer = DatabaseLayer.GetInstance();
         //networkManager.StartServer();
     }
-	
-	void OnEnable()
-	{
-		StartCoroutine(test123());
-	}
     
     [Server]
     void InviteFriend(NetworkMessage netMsg)
@@ -161,15 +156,5 @@ public class Server : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
-    }
-
-    IEnumerator test123()
-    {
-        while (true)
-        {
-            MyNetworkManager.SendMessageToClient(1, 1000, "update");
-            Debug.Log("test123");
-			yield return new WaitForSeconds(1);
-        }
     }
 }

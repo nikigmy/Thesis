@@ -64,6 +64,10 @@ public class DataStorage
             {
                 person.OnlineStatus = true;
             }
+            else
+            {
+                person.OnlineStatus = false;
+            }
         }
     }
 }

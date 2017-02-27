@@ -110,6 +110,7 @@ public class ContentFiller : MonoBehaviour
         {
             GameObject a = (GameObject)Instantiate(FriendPrefab, FriendsContainer.transform);
             Friend friend = a.GetComponent<Friend>();
+            LowerPanel.instance.Friends.Add(friend);
             Sprite profilePicture = new Sprite();
             
             try

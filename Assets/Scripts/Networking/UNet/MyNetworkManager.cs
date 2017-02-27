@@ -27,8 +27,6 @@ public class MyNetworkManager : NetworkManager
     public override void OnServerConnect(NetworkConnection conn)
     {
         Debug.Log("client conected(server)");
-        NetworkServer.SpawnWithClientAuthority(clientPrefab, conn);
-        NetworkIdentity a;
         ClientScene.Ready(conn);
         Server.singleton.AddPlayer(conn.connectionId);
         base.OnServerConnect(conn);

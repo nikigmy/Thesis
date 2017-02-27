@@ -20,7 +20,6 @@ public class Status : MonoBehaviour
     IEnumerator StatusUpdater()
     {
         yield return new WaitForSeconds(2);
-        LowerPanel.instance.Initialize();
         while (true)
         {
             PhotonPlayer[] a = PhotonNetwork.playerList;

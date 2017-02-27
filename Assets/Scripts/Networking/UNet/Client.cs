@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.Networking.NetworkSystem;
 using UnityEngine.UI;
@@ -92,5 +88,7 @@ public class Client : NetworkBehaviour
         {
             DataStorage.OnlineFriends.Add(friendId);
         }
+        DataStorage.UpdateStatus();
+        LowerPanel.instance.UpdateStatus();
     }
 }
