@@ -268,4 +268,18 @@ public class DatabaseLayer
         reader = null;
         return connectionId;
     }
+
+    public string GetFacebookID(int connectionId)
+    {
+        string query = "SELECT FacebookID FROM Players WHERE ConnectionID = " + connectionId + ";";
+        IDataReader reader = ReadFromDatabase(query);
+        string facebookId = "";
+        while (reader.Read())
+        {
+            facebookId = reader.GetString(0);
+        }
+        reader.Close();
+        reader = null;
+        return facebookId;
+    }
 }

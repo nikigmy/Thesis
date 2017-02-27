@@ -100,9 +100,7 @@ public class Server : NetworkBehaviour
     void GameInvites(NetworkMessage netMsg)
     {
         string[] data = netMsg.ReadMessage<StringMessage>().value.Split(';');
-        int inviterConnectionId = netMsg.conn.connectionId;
         int invitedConnectionId = DatabaseLayer.GetConnectionID(data[1]);
-        int gameId = int.Parse(data[2]);
         MyNetworkManager.SendMessageToClient(invitedConnectionId, gameInvite, data[0] + ";" + data[2] + ";" + data[3]);
     }
 
