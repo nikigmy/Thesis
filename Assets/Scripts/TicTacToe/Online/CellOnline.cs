@@ -24,7 +24,7 @@ public class CellOnline : MonoBehaviour {
 
     public bool PlaceTurn(Main.Player player)
     {
-        if (interactable || taken != Main.Player.None)
+        if (interactable && taken == Main.Player.None)
         {
             if (player == Main.Player.PlayerOne)
             {

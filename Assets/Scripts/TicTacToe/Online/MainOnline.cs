@@ -33,25 +33,16 @@ public class MainOnline : MonoBehaviour
 
     public void PlaceTurn(int cellIndex)
     {
-        if (thisPlayer != turn)
-            return;
         if (cells[cellIndex].PlaceTurn(turn))
         {
             if (turn == thisPlayer)
             {
-                foreach (var cell in cells)
-                {
-                    cell.Deactivate();
-                }
-
+                DisableAll();
                 MyNetworkManager.SendMessageToServer(1005, cellIndex.ToString());
             }
             else
             {
-                foreach (var cell in cells)
-                {
-                    cell.Activate();
-                }
+               EnableAll();
             }
             if (turn == Main.Player.PlayerOne)
             {
@@ -62,6 +53,22 @@ public class MainOnline : MonoBehaviour
                 turn = Main.Player.PlayerOne;
             }
             CheckForWin();
+        }
+    }
+
+    public void DisableAll()
+    {
+        foreach (var cell in cells)
+        {
+            cell.Deactivate();
+        }
+    }
+
+    public void EnableAll()
+    {
+        foreach (var cell in cells)
+        {
+            cell.Activate();
         }
     }
 
@@ -99,6 +106,7 @@ public class MainOnline : MonoBehaviour
     {
         if (cells[indexOne].taken == cells[indexTwo].taken && cells[indexOne].taken == cells[indexThree].taken && cells[indexOne].taken != Main.Player.None)
         {
+            MyNetworkManager.SendMessageToServer(1005, "over");
             EndGame(cells[indexOne].taken);
         }
     }

@@ -26,6 +26,7 @@ public class Server : NetworkBehaviour
 
     internal class Game
     {
+        public bool chosen;
         public int firstId;
         public int secondId;
     }
@@ -117,8 +118,6 @@ public class Server : NetworkBehaviour
         }
         MyNetworkManager.SendMessageToClient(invitedConnectionId, gameInvite, data[0] + ";" + data[2] + ";" + data[3]);
     }
-
-    private bool chosen = false;
     [Server]
     void InGame(NetworkMessage netMsg)
     {
@@ -128,11 +127,17 @@ public class Server : NetworkBehaviour
         Game game =
             currentGames.First(x => x.firstId == senderId || x.secondId == senderId);
         recieverId = game.firstId == senderId ? game.secondId : game.firstId;
-        if (message == "chose" && !chosen)
+        if (message == "chose")
         {
+            if (game.chosen)
+                return;
             MyNetworkManager.SendMessageToClient(netMsg.conn.connectionId, inGame, "first");
             MyNetworkManager.SendMessageToClient(recieverId, inGame, "second");
-            chosen = true;
+            game.chosen = true;
+        }
+        else if (message == "over")
+        {
+            currentGames.Remove(game);
         }
         else
         {

@@ -106,11 +106,13 @@ public class Client : NetworkBehaviour
         if (message == "first")
         {
             MainOnline.singleton.thisPlayer = Main.Player.PlayerOne;
+            MainOnline.singleton.EnableAll();
 
         }
         else if (message == "second")
         {
             MainOnline.singleton.thisPlayer = Main.Player.PlayerTwo;
+            MainOnline.singleton.DisableAll();
         }
         else
         {
