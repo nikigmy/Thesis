@@ -14,7 +14,6 @@ public class NetworkHandler : NetworkBehaviour
 	void Start () {
         main = FindObjectsOfType<MainOnline>()[0];
         NetworkManager = ClientSpawner.singleton.networkManager;
-        MyNetworkManager.SendMessageToServer(inGame, "chose");
     }
 
     public void RegisterHandlers()

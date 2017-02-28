@@ -102,16 +102,21 @@ public class Client : NetworkBehaviour
     void InGame(NetworkMessage msg)
     {
         string message = msg.ReadMessage<StringMessage>().value;
+		Debug.Log(message);
         if (message == "first")
         {
             MainOnline.singleton.thisPlayer = Main.Player.PlayerOne;
+
         }
         else if (message == "second")
         {
             MainOnline.singleton.thisPlayer = Main.Player.PlayerTwo;
         }
-        int turn = int.Parse(message);
-        MainOnline.singleton.PlaceTurn(turn);
+        else
+        {
+            int turn = int.Parse(message);
+            MainOnline.singleton.PlaceTurn(turn);
+        }
     }
     public void InviteFriend(string cliendFbId, string friendFbId, int gameIndex)
     {

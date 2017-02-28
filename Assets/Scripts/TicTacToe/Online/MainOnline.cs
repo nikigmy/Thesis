@@ -28,6 +28,7 @@ public class MainOnline : MonoBehaviour
             cells[i] = transform.GetChild(i).GetComponent<CellOnline>();
         }
         turn = Main.Player.PlayerOne;
+		MyNetworkManager.SendMessageToServer(1005, "chose");
     }
 
     public void PlaceTurn(int cellIndex)
