@@ -9,17 +9,20 @@ public class NetworkingModeController : MonoBehaviour
     public MyNetworkManager networkManager;
     public GameObject client;
     public GameObject server;
-    //	void Start () {
-    //#if UNITY_EDITOR
-    //        {
-    //            SceneManager.LoadScene("Server");
-    //        }
-    //#else
-    //        {
-    //            SceneManager.LoadScene("Login");
-    //        }
-    //#endif
-    //    }
+    void Start()
+    {
+        if (Application.platform == RuntimePlatform.WindowsPlayer || Application.platform == RuntimePlatform.WindowsEditor)
+        {
+            networkManager.StartServer();
+            SceneManager.LoadScene("Server", LoadSceneMode.Additive);
+        }
+        else if (Application.platform == RuntimePlatform.Android)
+        {
+            GameObject.Destroy(server);
+            networkManager.StartClient();
+            SceneManager.LoadScene("Login", LoadSceneMode.Additive);
+        }
+    }
 
     public void OnClientClicked()
     {

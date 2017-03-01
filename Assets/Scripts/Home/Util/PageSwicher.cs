@@ -14,6 +14,17 @@ public class PageSwicher : MonoBehaviour
         instance = this;
     }
 
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (GamePage.activeSelf)
+            {
+                EnableHomePage();
+            }
+        }
+    }
+
     public void EnableHomePage()
     {
         HomePage.SetActive(true);

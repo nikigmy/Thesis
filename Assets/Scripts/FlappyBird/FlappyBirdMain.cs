@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Security.Policy;
 using UnityEngine;
 using UnityEngine.Networking.NetworkSystem;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class FlappyBirdMain : MonoBehaviour
@@ -37,6 +38,14 @@ public class FlappyBirdMain : MonoBehaviour
     {
         Score++;
         PointsText.text = Score.ToString();
+    }
+
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            SceneManager.LoadScene("HomeLoggedin");
+        }
     }
 
     public void OnPlayClicked()

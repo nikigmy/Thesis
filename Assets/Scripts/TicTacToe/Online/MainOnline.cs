@@ -31,6 +31,14 @@ public class MainOnline : MonoBehaviour
 		MyNetworkManager.SendMessageToServer(1005, "chose");
     }
 
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+           SceneManager.LoadScene("HomeLoggedin");
+        }
+    }
+
     public void PlaceTurn(int cellIndex)
     {
         if (cells[cellIndex].PlaceTurn(turn))

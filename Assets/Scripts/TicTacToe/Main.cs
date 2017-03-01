@@ -32,6 +32,13 @@ public class Main : MonoBehaviour
         }
         turn = Player.PlayerOne;
     }
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            SceneManager.LoadScene("HomeLoggedin");
+        }
+    }
 
     public void PlaceTurn(int cellIndex)
     {
