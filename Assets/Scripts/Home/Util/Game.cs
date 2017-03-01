@@ -11,10 +11,12 @@ public class Game : MonoBehaviour
     public string Description;
     public int SceneNumber;
     public GamePanel GamePanel;
+    public bool Multiplayer;
+    public bool HasHighscores;
 
     public void OnButtonPressed()
     {
         PageSwicher.instance.EnableGamePage();
-        GamePanel.LoadPanel(new Main.GameInfo(Name, Description, Image, SceneNumber));     
+        GamePanel.LoadPanel(new DataStorage.GameInfo(Name, Description, Image, SceneNumber, Multiplayer, HasHighscores));
     }
 }

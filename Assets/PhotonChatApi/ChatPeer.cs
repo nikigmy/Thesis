@@ -246,7 +246,7 @@ namespace ExitGames.Client.Photon.Chat
         /// <summary>After initial authentication, Photon provides a token for this client / user, which is subsequently used as (cached) validation.</summary>
         public string Token { get; set; }
 
-        /// <summary>The UserId should be a unique identifier per user. This is for finding friends, etc..</summary>
+        /// <summary>The UserId should be a unique identifier per user. This is for finding Highscores, etc..</summary>
         public string UserId { get; set; }
 
 

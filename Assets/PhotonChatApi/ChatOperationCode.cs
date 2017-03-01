@@ -28,9 +28,9 @@ namespace ExitGames.Client.Photon.Chat
 
         /// <summary>(5) Set your (client's) status.</summary>
         public const byte UpdateStatus = 5;
-        /// <summary>(6) Add friends the list of friends that should update you of their status.</summary>
+        /// <summary>(6) Add Highscores the list of Highscores that should update you of their status.</summary>
         public const byte AddFriends = 6;
-        /// <summary>(7) Remove friends from list of friends that should update you of their status.</summary>
+        /// <summary>(7) Remove Highscores from list of Highscores that should update you of their status.</summary>
         public const byte RemoveFriends = 7;
     }
 }

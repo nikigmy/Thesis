@@ -67,7 +67,7 @@ public class Util : ScriptableObject
         var responseObject = Json.Deserialize(response) as Dictionary<string, object>;
         object friendsH;
         var friends = new List<object>();
-        if (responseObject.TryGetValue("friends", out friendsH))
+        if (responseObject.TryGetValue("Highscores", out friendsH))
         {
             friends = (List<object>)(((Dictionary<string, object>)friendsH)["data"]);
         }

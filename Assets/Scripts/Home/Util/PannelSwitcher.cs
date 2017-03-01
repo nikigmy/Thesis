@@ -9,7 +9,7 @@ public class PannelSwitcher : MonoBehaviour
 
    public void OnFriendsClicked()
     {
-        Debug.Log("friends");
+        Debug.Log("Highscores");
         GamesPanel.SetActive(false);
         FriendsPanel.SetActive(true);
     }

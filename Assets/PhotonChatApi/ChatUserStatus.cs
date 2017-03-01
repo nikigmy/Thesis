@@ -12,7 +12,7 @@ namespace ExitGames.Client.Photon.Chat
     ///
     /// Define custom online status values as you like with these rules:
     /// 0: Means "offline". It will be used when you are not connected. In this status, there is no status message.
-    /// 1: Means "invisible" and is sent to friends as "offline". They see status 0, no message but you can chat.
+    /// 1: Means "invisible" and is sent to Highscores as "offline". They see status 0, no message but you can chat.
     /// 2: And any higher value will be treated as "online". Status can be set.
     /// </remarks>
     public static class ChatUserStatus

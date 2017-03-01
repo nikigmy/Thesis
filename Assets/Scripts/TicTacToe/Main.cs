@@ -6,22 +6,6 @@ using UnityEngine.UI;
 
 public class Main : MonoBehaviour
 {
-
-    public class GameInfo
-    {
-        public string Name;
-        public string Description;
-        public Sprite Image;
-        public int Index;
-
-        public GameInfo(string name, string description, Sprite image, int index)
-        {
-            Name = name;
-            Description = description;
-            Image = image;
-            Index = index;
-        }
-    }
     Player thisPlayer = Player.PlayerOne;
     public enum Player
     {

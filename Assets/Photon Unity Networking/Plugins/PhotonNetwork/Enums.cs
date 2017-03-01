@@ -335,7 +335,7 @@ public enum PhotonNetworkingMessage
     /// Called when the server sent the response to a FindFriends request and updated PhotonNetwork.Friends.
     /// </summary>
     /// <remarks>
-    /// The friends list is available as PhotonNetwork.Friends, listing name, online state and
+    /// The Highscores list is available as PhotonNetwork.Friends, listing name, online state and
     /// the room a user is in (if any).
     ///
     /// Example: void OnUpdatedFriendList() { ... }

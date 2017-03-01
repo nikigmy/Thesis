@@ -360,7 +360,7 @@ internal class NetworkingPeer : LoadBalancingPeer, IPhotonPeerListener
 
 
 
-    /// <summary>Contains the list of names of friends to look up their state on the server.</summary>
+    /// <summary>Contains the list of names of Highscores to look up their state on the server.</summary>
     private string[] friendListRequested;
 
     /// <summary>
@@ -836,7 +836,7 @@ internal class NetworkingPeer : LoadBalancingPeer, IPhotonPeerListener
     }
 
     /// <summary>
-    /// Request the rooms and online status for a list of friends. All client must set a unique username via PlayerName property. The result is available in this.Friends.
+    /// Request the rooms and online status for a list of Highscores. All client must set a unique username via PlayerName property. The result is available in this.Friends.
     /// </summary>
     /// <remarks>
     /// Used on Master Server to find the rooms played by a selected list of users.
@@ -861,7 +861,7 @@ internal class NetworkingPeer : LoadBalancingPeer, IPhotonPeerListener
     {
         if (this.isFetchingFriendList)
         {
-            return false;   // fetching friends currently, so don't do it again (avoid changing the list while fetching friends)
+            return false;   // fetching Highscores currently, so don't do it again (avoid changing the list while fetching Highscores)
         }
 
         this.friendListRequested = friendsToFind;

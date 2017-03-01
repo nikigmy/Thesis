@@ -174,14 +174,7 @@ public class DatabaseLayer
     public void SaveFlapyBirdScore(int connectionId, int score)
     {
         int DbId = 0;
-        string getIDQuery = "SELECT ID FROM Players WHERE ConnectionID = " + connectionId + ";";
-        IDataReader idReader = ReadFromDatabase(getIDQuery);
-        while (idReader.Read())
-        {
-            DbId = idReader.GetInt32(0);
-        }
-        idReader.Close();
-        idReader = null;
+        DbId = GetDbId(connectionId);
 
         string alreadyPlayedQuery = "SELECT COUNT(ID) AS count FROM FlappyBirdScores WHERE PlayerID = " + DbId +";";
         IDataReader alreadyPlayedReader = ReadFromDatabase(alreadyPlayedQuery);
@@ -218,14 +211,71 @@ public class DatabaseLayer
         }
 
     }
+
+    int GetDbId(int connectionId)
+    {
+        int DbId = 0;
+        string getIDQuery = "SELECT ID FROM Players WHERE ConnectionID = " + connectionId + ";";
+        IDataReader idReader = ReadFromDatabase(getIDQuery);
+        while (idReader.Read())
+        {
+            DbId = idReader.GetInt32(0);
+        }
+        idReader.Close();
+        idReader = null;
+
+        return DbId;
+    }
+
+    string GetFbId(int dbId)
+    {
+        string query = "SELECT FacebookID FROM Players WHERE ID = " + dbId + ";";
+        IDataReader reader = ReadFromDatabase(query);
+        string fbId = "";
+        while (reader.Read())
+        {
+            fbId = reader.GetString(0);
+        }
+        reader.Close();
+        reader = null;
+
+        return fbId;
+    }
     /// <summary>
     /// Gets scores of friends
     /// </summary>
     /// <param name="connectionID"></param>
     /// <returns>Dictionary with Facebook ids and scores for friends</returns>
-    public List<Dictionary<string, int>> GetFlapyBirdScores(int connectionID)
+    public Dictionary<string, int> GetFlapyBirdScores(int connectionID)
     {
-        return null;
+        Dictionary<string, int> fbIdsAndScores = new Dictionary<string, int>();
+        List<int> friendIds = GetFriendIDs(GetDbId(connectionID));
+        if (friendIds.Count == 0)
+            return null;
+        StringBuilder query = new StringBuilder();
+        query.Append("SELECT PlayerID, Score FROM FlappyBirdScores WHERE ");
+        
+        query.Append("PlayerID = " + friendIds[0]);
+        for (int i = 1; i < friendIds.Count; i++)
+        {
+            query.Append(" OR PlayerID = " + friendIds[i]);
+        }
+        query.Append(";");
+
+        IDataReader reader = ReadFromDatabase(query.ToString());
+        int dbId = 0;
+        int score = 0;
+        while (reader.Read())
+        {
+            dbId = reader.GetInt32(0);
+            score = reader.GetInt32(1);
+            string fbId = GetFbId(dbId);
+            fbIdsAndScores.Add(fbId, score);
+        }
+        reader.Close();
+        reader = null;
+
+        return fbIdsAndScores;
     }
 
     public void UpdateDescription(string facebookID, string Description)

@@ -309,7 +309,7 @@ public class PhotonConverter : Photon.MonoBehaviour
 
         //General
         {
-            if (text.Contains("Photon")) //Only use the PhotonMonoBehaviour if we use photonView and friends.
+            if (text.Contains("Photon")) //Only use the PhotonMonoBehaviour if we use photonView and Highscores.
             {
                 if (isJS)//JS
                 {

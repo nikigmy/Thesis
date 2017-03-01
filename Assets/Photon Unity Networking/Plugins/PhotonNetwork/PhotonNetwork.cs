@@ -354,7 +354,7 @@ public static class PhotonNetwork
     }
 
     /// <summary>
-    /// Read-only list of friends, their online status and the room they are in. Null until initialized by a FindFriends call.
+    /// Read-only list of Highscores, their online status and the room they are in. Null until initialized by a FindFriends call.
     /// </summary>
     /// <remarks>
     /// Do not modify this list!
@@ -362,7 +362,7 @@ public static class PhotonNetwork
     /// The value of FriendListAge tells you how old the data is in milliseconds.
     ///
     /// Don't get this list more often than useful (> 10 seconds). In best case, keep the list you fetch really short.
-    /// You could (e.g.) get the full list only once, then request a few updates only for friends who are online.
+    /// You could (e.g.) get the full list only once, then request a few updates only for Highscores who are online.
     /// After a while (e.g. 1 minute), you can get the full list again (to update online states).
     /// </remarks>
     public static List<FriendInfo> Friends { get; internal set; }
@@ -1572,7 +1572,7 @@ public static class PhotonNetwork
     }
 
     /// <summary>
-    /// Requests the rooms and online status for a list of friends and saves the result in PhotonNetwork.Friends.
+    /// Requests the rooms and online status for a list of Highscores and saves the result in PhotonNetwork.Friends.
     /// </summary>
     /// <remarks>
     /// Works only on Master Server to find the rooms played by a selected list of users.
@@ -1584,7 +1584,7 @@ public static class PhotonNetwork
     /// Users identify themselves by setting a unique userId in the PhotonNetwork.AuthValues.
     /// See remarks of AuthenticationValues for info about how this is set and used.
     ///
-    /// The list of friends must be fetched from some other source (not provided by Photon).
+    /// The list of Highscores must be fetched from some other source (not provided by Photon).
     ///
     ///
     /// Internal:

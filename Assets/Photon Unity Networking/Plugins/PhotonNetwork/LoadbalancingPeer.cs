@@ -338,7 +338,7 @@ using ExitGames.Client.Photon;
         }
 
         /// <summary>
-        /// Request the rooms and online status for a list of friends (each client must set a unique username via OpAuthenticate).
+        /// Request the rooms and online status for a list of Highscores (each client must set a unique username via OpAuthenticate).
         /// </summary>
         /// <remarks>
         /// Used on Master Server to find the rooms played by a selected list of users.
@@ -1194,7 +1194,7 @@ using ExitGames.Client.Photon;
         /// <remarks>Tightly related to GamePropertyKey.MasterClientId.</remarks>
         public const byte MasterClientId = (byte)203;
 
-        /// <summary>(1) Used in Op FindFriends request. Value must be string[] of friends to look up.</summary>
+        /// <summary>(1) Used in Op FindFriends request. Value must be string[] of Highscores to look up.</summary>
         public const byte FindFriendsRequestList = (byte)1;
 
         /// <summary>(1) Used in Op FindFriends response. Contains bool[] list of online states (false if not online).</summary>
@@ -1311,7 +1311,7 @@ using ExitGames.Client.Photon;
         /// <summary>(248) Operation code to change interest groups in Rooms (Lite application and extending ones).</summary>
         public const byte ChangeGroups = (byte)248;
 
-        /// <summary>(222) Request the rooms and online status for a list of friends (by name, which should be unique).</summary>
+        /// <summary>(222) Request the rooms and online status for a list of Highscores (by name, which should be unique).</summary>
         public const byte FindFriends = 222;
 
         /// <summary>(221) Request statistics about a specific list of lobbies (their user and game count).</summary>
@@ -1744,7 +1744,7 @@ public class RaiseEventOptions
         /// <summary>After initial authentication, Photon provides a token for this client / user, which is subsequently used as (cached) validation.</summary>
         public string Token { get; set; }
 
-        /// <summary>The UserId should be a unique identifier per user. This is for finding friends, etc..</summary>
+        /// <summary>The UserId should be a unique identifier per user. This is for finding Highscores, etc..</summary>
         /// <remarks>See remarks of AuthValues for info about how this is set and used.</remarks>
         public string UserId { get; set; }
 

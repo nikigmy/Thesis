@@ -5,6 +5,25 @@ using System.Linq;
 
 public class DataStorage
 {
+    public class GameInfo
+    {
+        public string Name;
+        public string Description;
+        public Sprite Image;
+        public int Index;
+        public bool Multiplayer;
+        public bool HasHighscores;
+
+        public GameInfo(string name, string description, Sprite image, int index, bool multiplayer, bool hasHighscores)
+        {
+            Name = name;
+            Description = description;
+            Image = image;
+            Index = index;
+            Multiplayer = multiplayer;
+            HasHighscores = hasHighscores;
+        }
+    }
     public class Person
     {
         public Person()

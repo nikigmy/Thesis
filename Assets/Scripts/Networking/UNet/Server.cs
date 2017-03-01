@@ -113,9 +113,18 @@ public class Server : NetworkBehaviour
     void FlappyBird(NetworkMessage netMsg)
     {
         string message = netMsg.ReadMessage<StringMessage>().value;
+        StringBuilder returnMessage = new StringBuilder();
         if (message == "getscores")
         {
-
+            Dictionary<string, int> fbIdsAndScores = DatabaseLayer.GetFlapyBirdScores(netMsg.conn.connectionId);
+            if (fbIdsAndScores.Count == 0)
+                return;
+            foreach (var fbIdsAndScore in fbIdsAndScores)
+            {
+                returnMessage.Append(";" + fbIdsAndScore.Key + "," + fbIdsAndScore.Value);
+            }
+            returnMessage.Remove(0, 1);
+            MyNetworkManager.SendMessageToClient(netMsg.conn.connectionId, flappyBird, returnMessage.ToString());
         }
         else
         {

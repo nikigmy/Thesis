@@ -1,4 +1,7 @@
-﻿using System.Diagnostics;
+﻿using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.Networking.NetworkSystem;
 using UnityEngine.SceneManagement;
@@ -14,6 +17,7 @@ public class Client : NetworkBehaviour
     const short gameInvite = 1003;
     const short onlineFriends = 1004;
     const short inGame = 1005;
+    const short flappyBird = 1006;
 
     public NetworkIdentity a;
     public MyNetworkManager networkingManager;
@@ -45,6 +49,7 @@ public class Client : NetworkBehaviour
         networkingManager.client.RegisterHandler(gameInvite, GameInvite);
         networkingManager.client.RegisterHandler(onlineFriends, OnlineFriends);
         networkingManager.client.RegisterHandler(inGame, InGame);
+        networkingManager.client.RegisterHandler(flappyBird, FlappyBirdScores);
     }
 
     [Client]
@@ -54,6 +59,21 @@ public class Client : NetworkBehaviour
         DataStorage.OnlineFriends.Add(facebookID);
         DataStorage.UpdateStatus();
         LowerPanel.instance.UpdateStatus();
+    }
+
+    [Client]
+    public void FlappyBirdScores(NetworkMessage msg)
+    {
+        Dictionary<Sprite, int> fbPictureAndScores = new Dictionary<Sprite, int>();
+        string[] fbIdsAndScores = msg.ReadMessage<StringMessage>().value.Split(';');
+        foreach (var fbIdsAndScore in fbIdsAndScores)
+        {
+            string[] fbIdAndScore = fbIdsAndScore.Split(',');
+            Sprite fbPicture = DataStorage.People.First(x => x.ID == fbIdAndScore[0]).ProfilePicture;
+            int score = int.Parse(fbIdAndScore[1]);
+            fbPictureAndScores.Add(fbPicture, score);
+        }
+        Highscores.singleton.ShowHighscores(fbPictureAndScores);
     }
 
     [Client]

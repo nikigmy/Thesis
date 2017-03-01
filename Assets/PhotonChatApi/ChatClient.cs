@@ -481,7 +481,7 @@ namespace ExitGames.Client.Photon.Chat
         /// Hashtable, object[] and string. This value is defined by your own conventions.
         /// </remarks>
         /// <param name="status">Predefined states are in class ChatUserStatus. Other values can be used at will.</param>
-        /// <param name="message">Also sets a status-message which your friends can get.</param>
+        /// <param name="message">Also sets a status-message which your Highscores can get.</param>
         /// <returns>True if the operation gets called on the server.</returns>
         public bool SetOnlineStatus(int status, object message)
         {
@@ -489,23 +489,23 @@ namespace ExitGames.Client.Photon.Chat
         }
 
         /// <summary>
-        /// Adds friends to a list on the Chat Server which will send you status updates for those.
+        /// Adds Highscores to a list on the Chat Server which will send you status updates for those.
         /// </summary>
         /// <remarks>
         /// AddFriends and RemoveFriends enable clients to handle their friend list
-        /// in the Photon Chat server. Having users on your friends list gives you access
+        /// in the Photon Chat server. Having users on your Highscores list gives you access
         /// to their current online status (and whatever info your client sets in it).
         ///
         /// Each user can set an online status consisting of an integer and an arbitratry
         /// (serializable) object. The object can be null, Hashtable, object[] or anything
         /// else Photon can serialize.
         ///
-        /// The status is published automatically to friends (anyone who set your user ID
+        /// The status is published automatically to Highscores (anyone who set your user ID
         /// with AddFriends).
         ///
-        /// Photon flushes friends-list when a chat client disconnects, so it has to be
+        /// Photon flushes Highscores-list when a chat client disconnects, so it has to be
         /// set each time. If your community API gives you access to online status already,
-        /// you could filter and set online friends in AddFriends.
+        /// you could filter and set online Highscores in AddFriends.
         ///
         /// Actual friend relations are not persistent and have to be stored outside
         /// of Photon.
@@ -551,36 +551,36 @@ namespace ExitGames.Client.Photon.Chat
         /// Removes the provided entries from the list on the Chat Server and stops their status updates.
         /// </summary>
         /// <remarks>
-        /// Photon flushes friends-list when a chat client disconnects. Unless you want to
+        /// Photon flushes Highscores-list when a chat client disconnects. Unless you want to
         /// remove individual entries, you don't have to RemoveFriends.
         ///
         /// AddFriends and RemoveFriends enable clients to handle their friend list
-        /// in the Photon Chat server. Having users on your friends list gives you access
+        /// in the Photon Chat server. Having users on your Highscores list gives you access
         /// to their current online status (and whatever info your client sets in it).
         ///
         /// Each user can set an online status consisting of an integer and an arbitratry
         /// (serializable) object. The object can be null, Hashtable, object[] or anything
         /// else Photon can serialize.
         ///
-        /// The status is published automatically to friends (anyone who set your user ID
+        /// The status is published automatically to Highscores (anyone who set your user ID
         /// with AddFriends).
         ///
-        /// Photon flushes friends-list when a chat client disconnects, so it has to be
+        /// Photon flushes Highscores-list when a chat client disconnects, so it has to be
         /// set each time. If your community API gives you access to online status already,
-        /// you could filter and set online friends in AddFriends.
+        /// you could filter and set online Highscores in AddFriends.
         ///
         /// Actual friend relations are not persistent and have to be stored outside
         /// of Photon.
         ///
         /// AddFriends and RemoveFriends enable clients to handle their friend list
-        /// in the Photon Chat server. Having users on your friends list gives you access
+        /// in the Photon Chat server. Having users on your Highscores list gives you access
         /// to their current online status (and whatever info your client sets in it).
         ///
         /// Each user can set an online status consisting of an integer and an arbitratry
         /// (serializable) object. The object can be null, Hashtable, object[] or anything
         /// else Photon can serialize.
         ///
-        /// The status is published automatically to friends (anyone who set your user ID
+        /// The status is published automatically to Highscores (anyone who set your user ID
         /// with AddFriends).
         ///
         ///

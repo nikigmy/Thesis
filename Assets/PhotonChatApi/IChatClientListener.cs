@@ -75,7 +75,7 @@ namespace ExitGames.Client.Photon.Chat
         void OnUnsubscribed(string[] channels);
 
         /// <summary>
-        /// New status of another user (you get updates for users set in your friends list).
+        /// New status of another user (you get updates for users set in your Highscores list).
         /// </summary>
         /// <param name="user">Name of the user.</param>
         /// <param name="status">New status of that user.</param>
