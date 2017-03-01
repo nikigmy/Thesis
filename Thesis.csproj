@@ -190,6 +190,11 @@
     <Compile Include="Assets\PhotonChatApi\ChatUserStatus.cs" />
     <Compile Include="Assets\PhotonChatApi\IChatClientListener.cs" />
     <Compile Include="Assets\Scripts\Database\DatabaseLayer.cs" />
+    <Compile Include="Assets\Scripts\FlappyBird\Bird.cs" />
+    <Compile Include="Assets\Scripts\FlappyBird\Collumn.cs" />
+    <Compile Include="Assets\Scripts\FlappyBird\FlappyBirdMain.cs" />
+    <Compile Include="Assets\Scripts\FlappyBird\MoveGround.cs" />
+    <Compile Include="Assets\Scripts\FlappyBird\Spawner.cs" />
     <Compile Include="Assets\Scripts\Home\GamePage\GamePanel.cs" />
     <Compile Include="Assets\Scripts\Home\GamePage\PlayOnline.cs" />
     <Compile Include="Assets\Scripts\Home\Home\LowerPanel.cs" />

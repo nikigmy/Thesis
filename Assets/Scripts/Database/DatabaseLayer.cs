@@ -88,7 +88,6 @@ public class DatabaseLayer
         return count;
     }
 
-    //tested
     private int ExecuteNonQuery(string query)
     {
         IDbCommand dbcmd = databaseConnection.CreateCommand();
@@ -100,6 +99,7 @@ public class DatabaseLayer
         return changedColumns;
     }
 
+    //Outdated UpdateThis 
     public void AddPlayer(string facebookID, string currentIP)
     {
         string query = "INSERT INTO Players ( FacebookID, Description, CurrentIP, OnlineStatus) VALUES(" + facebookID + ", " + " " + ", " + currentIP + ", " + 1 + ");";
@@ -169,6 +169,63 @@ public class DatabaseLayer
     {
         string sqlQuery = " UPDATE Players SET OnlineStatus = " + 0 + ", ConnectionID = -1 WHERE ConnectionID = " + connectionID + ";";
         int a = ExecuteNonQuery(sqlQuery);
+    }
+
+    public void SaveFlapyBirdScore(int connectionId, int score)
+    {
+        int DbId = 0;
+        string getIDQuery = "SELECT ID FROM Players WHERE ConnectionID = " + connectionId + ";";
+        IDataReader idReader = ReadFromDatabase(getIDQuery);
+        while (idReader.Read())
+        {
+            DbId = idReader.GetInt32(0);
+        }
+        idReader.Close();
+        idReader = null;
+
+        string alreadyPlayedQuery = "SELECT COUNT(ID) AS count FROM FlappyBirdScores WHERE PlayerID = " + DbId +";";
+        IDataReader alreadyPlayedReader = ReadFromDatabase(alreadyPlayedQuery);
+        int count = 0;
+        while (alreadyPlayedReader.Read())
+        {
+            count = alreadyPlayedReader.GetInt32(0);
+        }
+        alreadyPlayedReader.Close();
+        alreadyPlayedReader = null;
+
+        if (count == 0)
+        {
+            string addQuery = "INSERT INTO FlappyBirdScores ( PlayerID, Score) VALUES(" + DbId + ", " + score + ");";
+            ExecuteNonQuery(addQuery);
+        }
+        else
+        {
+            int currentHighScore = 0;
+            string getScoreQuery = "SELECT Score FROM FlappyBirdScores WHERE PlayerID = " + DbId + ";";
+            IDataReader currentHighScoreReader = ReadFromDatabase(getScoreQuery);
+            while (currentHighScoreReader.Read())
+            {
+                currentHighScore = currentHighScoreReader.GetInt32(0);
+            }
+            currentHighScoreReader.Close();
+            currentHighScoreReader = null;
+
+            if (currentHighScore < score)
+            {
+                string updateQuery = " UPDATE FlappyBirdScores SET Score = " + score + " WHERE PlayerID = " + DbId + ";";
+                ExecuteNonQuery(updateQuery);
+            }
+        }
+
+    }
+    /// <summary>
+    /// Gets scores of friends
+    /// </summary>
+    /// <param name="connectionID"></param>
+    /// <returns>Dictionary with Facebook ids and scores for friends</returns>
+    public List<Dictionary<string, int>> GetFlapyBirdScores(int connectionID)
+    {
+        return null;
     }
 
     public void UpdateDescription(string facebookID, string Description)

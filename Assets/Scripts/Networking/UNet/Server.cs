@@ -16,6 +16,7 @@ public class Server : NetworkBehaviour
     const short gameInvite = 1003;
     const short onlineFriends = 1004;
     const short inGame = 1005;
+    const short flappyBird = 1006;
 
     public MyNetworkManager networkManager;
     public const short GetRecieveFriends = 48;
@@ -102,11 +103,26 @@ public class Server : NetworkBehaviour
         NetworkServer.RegisterHandler(connect, OnConnected);
         NetworkServer.RegisterHandler(gameInvite, GameInvites);
         NetworkServer.RegisterHandler(inGame, InGame);
+        NetworkServer.RegisterHandler(flappyBird, FlappyBird);
         DatabaseLayer = DatabaseLayer.GetInstance();
         currentGames = new List<Game>();
         //networkManager.StartServer();
     }
 
+    [Server]
+    void FlappyBird(NetworkMessage netMsg)
+    {
+        string message = netMsg.ReadMessage<StringMessage>().value;
+        if (message == "getscores")
+        {
+
+        }
+        else
+        {
+            DatabaseLayer.SaveFlapyBirdScore(netMsg.conn.connectionId, int.Parse(message));
+        }
+    }
+    
     [Server]
     void GameInvites(NetworkMessage netMsg)
     {
