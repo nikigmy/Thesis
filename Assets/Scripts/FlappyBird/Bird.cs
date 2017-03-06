@@ -24,9 +24,8 @@ public class Bird : MonoBehaviour
     }
     void OnCollisionEnter2D(Collision2D collision)
     {
-        FlappyBirdMain.singleton.OnGameOver();
         anim.SetTrigger("Die");
-
+        FlappyBirdMain.singleton.OnGameOver();
     }
     void OnTriggerEnter2D(Collider2D other)
     {

@@ -18,6 +18,7 @@ public class Client : NetworkBehaviour
     const short onlineFriends = 1004;
     const short inGame = 1005;
     const short flappyBird = 1006;
+    const short endlessRunnerScore = 1007;
 
     public NetworkIdentity a;
     public MyNetworkManager networkingManager;
@@ -30,6 +31,7 @@ public class Client : NetworkBehaviour
         networkingManager = ClientSpawner.singleton.networkManager;
         RegisterHandlers();
     }
+
     private void OnEnable()
     {
         RegisterHandlers();
@@ -50,10 +52,17 @@ public class Client : NetworkBehaviour
         networkingManager.client.RegisterHandler(onlineFriends, OnlineFriends);
         networkingManager.client.RegisterHandler(inGame, InGame);
         networkingManager.client.RegisterHandler(flappyBird, FlappyBirdScores);
+        networkingManager.client.RegisterHandler(endlessRunnerScore, EndlessRunnerHighscore);
     }
 
     [Client]
-    public void FriendLoggedIn(NetworkMessage msg)
+    void EndlessRunnerHighscore(NetworkMessage msg)
+    {
+        EndlessRunnerMain.singleton.Highscore = int.Parse(msg.ReadMessage<StringMessage>().value);
+    }
+
+    [Client]
+    void FriendLoggedIn(NetworkMessage msg)
     {
         string facebookID = msg.ReadMessage<StringMessage>().value;
         DataStorage.OnlineFriends.Add(facebookID);
@@ -62,7 +71,7 @@ public class Client : NetworkBehaviour
     }
 
     [Client]
-    public void FlappyBirdScores(NetworkMessage msg)
+    void FlappyBirdScores(NetworkMessage msg)
     {
         Dictionary<Sprite, int> fbPictureAndScores = new Dictionary<Sprite, int>();
         string[] fbIdsAndScores = msg.ReadMessage<StringMessage>().value.Split(';');
@@ -122,7 +131,7 @@ public class Client : NetworkBehaviour
     void InGame(NetworkMessage msg)
     {
         string message = msg.ReadMessage<StringMessage>().value;
-		Debug.Log(message);
+        Debug.Log(message);
         if (message == "first")
         {
             MainOnline.singleton.thisPlayer = Main.Player.PlayerOne;
@@ -140,6 +149,7 @@ public class Client : NetworkBehaviour
             MainOnline.singleton.PlaceTurn(turn);
         }
     }
+
     public void InviteFriend(string cliendFbId, string friendFbId, int gameIndex)
     {
         MyNetworkManager.SendMessageToServer(gameInvite, cliendFbId + ";" + friendFbId + ";" + gameIndex);

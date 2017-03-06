@@ -13,8 +13,11 @@ public class NetworkingModeController : MonoBehaviour
     {
         if (Application.platform == RuntimePlatform.WindowsPlayer || Application.platform == RuntimePlatform.WindowsEditor)
         {
-            networkManager.StartServer();
-            SceneManager.LoadScene("Server", LoadSceneMode.Additive);
+			GameObject.Destroy(server);
+            networkManager.StartClient();
+            SceneManager.LoadScene("Login", LoadSceneMode.Additive);
+            //networkManager.StartServer();
+            //SceneManager.LoadScene("Server", LoadSceneMode.Additive);
         }
         else if (Application.platform == RuntimePlatform.Android)
         {

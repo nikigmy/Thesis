@@ -17,6 +17,7 @@ public class Server : NetworkBehaviour
     const short onlineFriends = 1004;
     const short inGame = 1005;
     const short flappyBird = 1006;
+    const short endlessRunnerScore = 1007;
 
     public MyNetworkManager networkManager;
     public const short GetRecieveFriends = 48;
@@ -104,9 +105,9 @@ public class Server : NetworkBehaviour
         NetworkServer.RegisterHandler(gameInvite, GameInvites);
         NetworkServer.RegisterHandler(inGame, InGame);
         NetworkServer.RegisterHandler(flappyBird, FlappyBird);
+        NetworkServer.RegisterHandler(endlessRunnerScore, EndlessRunner);
         DatabaseLayer = DatabaseLayer.GetInstance();
         currentGames = new List<Game>();
-        //networkManager.StartServer();
     }
 
     [Server]
@@ -131,7 +132,21 @@ public class Server : NetworkBehaviour
             DatabaseLayer.SaveFlapyBirdScore(netMsg.conn.connectionId, int.Parse(message));
         }
     }
-    
+
+    [Server]
+    void EndlessRunner(NetworkMessage netMsg)
+    {
+        string message = netMsg.ReadMessage<StringMessage>().value;
+        if (message == "GetHighscore")
+        {
+            MyNetworkManager.SendMessageToClient(netMsg.conn.connectionId, endlessRunnerScore, DatabaseLayer.GetEndlessRunnerHighscore(netMsg.conn.connectionId).ToString());
+        }
+        else
+        {
+            DatabaseLayer.SaveEndlessRunnerScore(netMsg.conn.connectionId, int.Parse(message));
+        }
+    }
+
     [Server]
     void GameInvites(NetworkMessage netMsg)
     {
@@ -209,9 +224,5 @@ public class Server : NetworkBehaviour
     {
         //var data = (Dictionary<>)Json.Deserialize(message);
 
-    }
-    // Update is called once per frame
-    void Update()
-    {
     }
 }

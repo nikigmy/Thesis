@@ -212,6 +212,62 @@ public class DatabaseLayer
 
     }
 
+    public void SaveEndlessRunnerScore(int connectionId, int score)
+    {
+        int DbId = 0;
+        DbId = GetDbId(connectionId);
+
+        string alreadyPlayedQuery = "SELECT COUNT(ID) AS count FROM EndlessRunnerScores WHERE PlayerID = " + DbId + ";";
+        IDataReader alreadyPlayedReader = ReadFromDatabase(alreadyPlayedQuery);
+        int count = 0;
+        while (alreadyPlayedReader.Read())
+        {
+            count = alreadyPlayedReader.GetInt32(0);
+        }
+        alreadyPlayedReader.Close();
+        alreadyPlayedReader = null;
+
+        if (count == 0)
+        {
+            string addQuery = "INSERT INTO EndlessRunnerScores ( PlayerID, Score) VALUES(" + DbId + ", " + score + ");";
+            ExecuteNonQuery(addQuery);
+        }
+        else
+        {
+            int currentHighScore = 0;
+            string getScoreQuery = "SELECT Score FROM EndlessRunnerScores WHERE PlayerID = " + DbId + ";";
+            IDataReader currentHighScoreReader = ReadFromDatabase(getScoreQuery);
+            while (currentHighScoreReader.Read())
+            {
+                currentHighScore = currentHighScoreReader.GetInt32(0);
+            }
+            currentHighScoreReader.Close();
+            currentHighScoreReader = null;
+
+            if (currentHighScore < score)
+            {
+                string updateQuery = " UPDATE EndlessRunnerScores SET Score = " + score + " WHERE PlayerID = " + DbId + ";";
+                ExecuteNonQuery(updateQuery);
+            }
+        }
+    }
+
+    public int GetEndlessRunnerHighscore(int connectionId)
+    {
+        int DbId = GetDbId(connectionId);
+        int currentHighScore = 0;
+        string getScoreQuery = "SELECT Score FROM EndlessRunnerScores WHERE PlayerID = " + DbId + ";";
+        IDataReader currentHighScoreReader = ReadFromDatabase(getScoreQuery);
+        while (currentHighScoreReader.Read())
+        {
+            currentHighScore = currentHighScoreReader.GetInt32(0);
+        }
+        currentHighScoreReader.Close();
+        currentHighScoreReader = null;
+
+        return currentHighScore;
+    }
+
     int GetDbId(int connectionId)
     {
         int DbId = 0;
@@ -254,7 +310,7 @@ public class DatabaseLayer
             return null;
         StringBuilder query = new StringBuilder();
         query.Append("SELECT PlayerID, Score FROM FlappyBirdScores WHERE ");
-        
+
         query.Append("PlayerID = " + friendIds[0]);
         for (int i = 1; i < friendIds.Count; i++)
         {
@@ -277,6 +333,38 @@ public class DatabaseLayer
 
         return fbIdsAndScores;
     }
+    public Dictionary<string, int> GetEndlessRunnerScores(int connectionID)
+    {
+        Dictionary<string, int> fbIdsAndScores = new Dictionary<string, int>();
+        List<int> friendIds = GetFriendIDs(GetDbId(connectionID));
+        if (friendIds.Count == 0)
+            return null;
+        StringBuilder query = new StringBuilder();
+        query.Append("SELECT PlayerID, Score FROM FlappyBirdScores WHERE ");
+
+        query.Append("PlayerID = " + friendIds[0]);
+        for (int i = 1; i < friendIds.Count; i++)
+        {
+            query.Append(" OR PlayerID = " + friendIds[i]);
+        }
+        query.Append(";");
+
+        IDataReader reader = ReadFromDatabase(query.ToString());
+        int dbId = 0;
+        int score = 0;
+        while (reader.Read())
+        {
+            dbId = reader.GetInt32(0);
+            score = reader.GetInt32(1);
+            string fbId = GetFbId(dbId);
+            fbIdsAndScores.Add(fbId, score);
+        }
+        reader.Close();
+        reader = null;
+
+        return fbIdsAndScores;
+    }
+
 
     public void UpdateDescription(string facebookID, string Description)
     {
