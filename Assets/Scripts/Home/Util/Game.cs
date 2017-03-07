@@ -18,12 +18,16 @@ public class Game : MonoBehaviour
     void Start()
     {
         LayoutElement element = GetComponent<LayoutElement>();
-        element.minHeight = element.minWidth = element.preferredHeight = element.preferredWidth = (Screen.width - 30)/3;
+
+        int size = (Screen.width - 30) / 3;
+        if (size < 150)
+            size = (Screen.width - 25) / 2;
+        element.minHeight = element.minWidth = element.preferredHeight = element.preferredWidth = size;
     }
     public void OnButtonPressed()
     {
         PageSwicher.instance.EnableGamePage();
         GamePanel.LoadPanel(new DataStorage.GameInfo(Name, Description, Image, SceneNumber, Multiplayer, HasHighscores));
-       
+
     }
 }

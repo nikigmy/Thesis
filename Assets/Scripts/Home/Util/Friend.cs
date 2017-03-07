@@ -12,6 +12,18 @@ public class Friend : MonoBehaviour
     public Text Username;
     public Image ProfilePicture;
     private bool onlineStatus;
+
+    void Start()
+    {
+        LayoutElement element = GetComponent<LayoutElement>();
+        float height = (transform.parent.parent.GetComponent<RectTransform>().rect.height - 20)/4;
+        if (height < 150)
+            height = 150;
+        if (height > 300)
+            height = 300;
+        element.minHeight = element.preferredHeight = height;
+    }
+
     public bool OnlineStatus
     {
         get { return onlineStatus; }

@@ -25,21 +25,21 @@ public class GamePanel : MonoBehaviour
         PlayOnlineButton.SetActive(info.Multiplayer);
 
         float leftAnchor;
-        float rightAnchorl;
+        float rightAnchor;
 
         if (info.Multiplayer)
         {
             leftAnchor = 0.05f;
-            rightAnchorl = 0.45f;
+            rightAnchor = 0.45f;
         }
         else
         {
             leftAnchor = 0.3f;
-            rightAnchorl = 0.7f;
+            rightAnchor = 0.7f;
         }
 
         playButtonRectTransform.anchorMin = new Vector2(leftAnchor, playButtonRectTransform.anchorMin.y);
-        playButtonRectTransform.anchorMax = new Vector2(rightAnchorl, playButtonRectTransform.anchorMax.y);
+        playButtonRectTransform.anchorMax = new Vector2(rightAnchor, playButtonRectTransform.anchorMax.y);
         playButtonRectTransform.offsetMin = playButtonRectTransform.offsetMax = Vector2.zero;
         if (info.HasHighscores)
         {
