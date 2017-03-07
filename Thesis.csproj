@@ -124,6 +124,7 @@
     <Compile Include="Assets\Scripts\Home\GamePage\GamePanel.cs" />
     <Compile Include="Assets\Scripts\Home\GamePage\Highscores.cs" />
     <Compile Include="Assets\Scripts\Home\GamePage\PlayOnline.cs" />
+    <Compile Include="Assets\Scripts\Home\Home\Games.cs" />
     <Compile Include="Assets\Scripts\Home\Home\LowerPanel.cs" />
     <Compile Include="Assets\Scripts\Home\Home\UpperPanel.cs" />
     <Compile Include="Assets\Scripts\Home\UserPage\NavigationPanel.cs" />

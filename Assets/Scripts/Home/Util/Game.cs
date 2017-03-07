@@ -2,6 +2,7 @@
 using UnityEngine;
 using System.Collections;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class Game : MonoBehaviour
 {
@@ -14,9 +15,15 @@ public class Game : MonoBehaviour
     public bool Multiplayer;
     public bool HasHighscores;
 
+    void Start()
+    {
+        LayoutElement element = GetComponent<LayoutElement>();
+        element.minHeight = element.minWidth = element.preferredHeight = element.preferredWidth = (Screen.width - 30)/3;
+    }
     public void OnButtonPressed()
     {
         PageSwicher.instance.EnableGamePage();
         GamePanel.LoadPanel(new DataStorage.GameInfo(Name, Description, Image, SceneNumber, Multiplayer, HasHighscores));
+       
     }
 }

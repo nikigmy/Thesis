@@ -11,6 +11,9 @@ public class NetworkingModeController : MonoBehaviour
     public GameObject server;
     void Start()
     {
+        Screen.autorotateToLandscapeLeft =
+            Screen.autorotateToLandscapeRight = Screen.autorotateToPortraitUpsideDown = false;
+        Screen.orientation = ScreenOrientation.Portrait;
         if (Application.platform == RuntimePlatform.WindowsPlayer || Application.platform == RuntimePlatform.WindowsEditor)
         {
 			GameObject.Destroy(server);

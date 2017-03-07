@@ -88,7 +88,10 @@ public class ContentFiller : MonoBehaviour
         }
         else
         {
-            Sprite picture = Sprite.Create(result.Texture, new Rect(0, 0, profilePictureSize.x, profilePictureSize.y), Vector2.zero);
+            Sprite picture = Sprite.Create(result.Texture, new Rect(0, 0, (int)profilePictureSize.x, (int)profilePictureSize.y), Vector2.zero);
+
+            //Sprite picture = Sprite.Create(result.Texture, new Rect(0, 0, profilePictureSize.x, profilePictureSize.y),
+            //    Vector2.zero, 800000);
             ProfilePicture.sprite = DataStorage.ThisUser.ProfilePicture = picture;
         }
     }
@@ -134,12 +137,15 @@ public class ContentFiller : MonoBehaviour
             Friend friend = a.GetComponent<Friend>();
             LowerPanel.instance.Friends.Add(friend);
             Sprite profilePicture = new Sprite();
-
             try
             {
-                profilePicture = Sprite.Create(res.Texture, new Rect(0, 0, profilePictureSize.x, profilePictureSize.y), Vector2.zero);
+                profilePicture = Sprite.Create(res.Texture, new Rect(0, 0, (int)profilePictureSize.x, (int)profilePictureSize.y), Vector2.zero);
+                profilePicture.name = name;
             }
-            catch (Exception) { }
+            catch (Exception ex)
+            {
+                Debug.Log("Could not create profile picture:" + ex.Message);
+            }
             DataStorage.Person person = new DataStorage.Person(id, name, profilePicture);
             DataStorage.People.Add(person);
             DataStorage.UpdateStatus();
@@ -158,7 +164,7 @@ public class ContentFiller : MonoBehaviour
         {
             person = DataStorage.People.First(x => x.ID == userID);
         }
-        UserPage.transform.GetChild(0).GetComponent<Image>().sprite = person.ProfilePicture;
+        UserPage.transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = person.ProfilePicture;
         UserPage.transform.GetChild(1).GetComponent<Text>().text = person.Name;
     }
 
